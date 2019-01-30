@@ -90,7 +90,7 @@
         	 navigator.app.overrideBackbutton(false);
         	 alert('No');
           }  
-	</script>	    
+	</script>	
   </head>  
   <body>
  
@@ -785,7 +785,7 @@
         </div>
 	  <div data-role="content">
               <div data-role="fieldcontain">                 
-                   <label for="descuento">Descuento(%)</label></br>
+                   <label for="descuento">Descuento (%)</label></br>
                    <input id="descuento" name="descuento" type="number" data-bind="value:DescPorc"/>
               </div>              
       </div>
@@ -903,8 +903,11 @@
             </li>                  
     		</ul>      
 
-        <input id="monedas" type="checkbox"  data-bind="checked:moneda">
-        <label for="monedas">Cuentas Clave</label>
+<form name="esCCForm"> 		
+		<!-- <span data-bind="text: esCC"></span> -->
+        <input id="esCC" name="esCC" type="checkbox"  data-bind="checked:esCC" >
+        <label for="esCC"> Es cuenta clave </label>
+</form>    
 
         Credito Disponible:<span data-bind="text: credis"></span><br>
 
