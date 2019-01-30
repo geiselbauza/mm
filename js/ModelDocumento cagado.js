@@ -21,6 +21,7 @@
 		precio3i : ko.observable("0"),		
 		precio : ko.observable("0"),
 		DescPorc : ko.observable("0"),
+		esCC	: ko.observable(0),
 		detalleprd : ko.observable(""),
 		iva : ko.observable("0"),
 		cantidad : ko.observable("0"),
@@ -30,22 +31,19 @@
 		p1v: ko.observable(true),
 		p2v: ko.observable(true),
 		p3v: ko.observable(true),
-		esCC:ko.observable(true),
 
 		
 		init : function() {
+			alert('Entro al Init');
 			$('#IngresoManual').live(
 					'pageinit',
 					function() {
-
 						self.TotalesParciales();
 						self.TotalesGenerales();
-						ko.applyBindings(self, document
-								.getElementById('IngresoManual'));
+						ko.applyBindings(self, document.getElementById('IngresoManual'));
 			 });
 
 			$('#items').live('pageinit', function() {
-
 				self.TotalesParciales();
 				self.TotalesGenerales();
 				ko.applyBindings(self, document.getElementById('items'));
@@ -58,7 +56,6 @@
 			});
 
 			$('#cantidad').live('pageinit', function() {
-
 				self.TotalesParciales();
 				self.TotalesGenerales();
 				ko.applyBindings(self, document.getElementById('cantidad'));
@@ -71,19 +68,16 @@
 			});
 
 			$('#descuento').live('pageinit', function() {
-
 				ko.applyBindings(self, document.getElementById('descuento'));
 			});
 
 
 			$('#detalle').live('pageinit', function() {
-
 				ko.applyBindings(self, document.getElementById('detalle'));
 			});
 
 
 			$('#totales').live('pageinit', function() {
-
 				ko.applyBindings(self, document.getElementById('totales'));
 			});
 
@@ -104,7 +98,7 @@
 				}
 			});			
 			$('#descuento').live('blur', function(e) {
-				   if (self.DescPorc()==''){
+				   if (self.()==''){
 					   self.DescPorc(0);
 				   }
 					self.verificarDescuento();
@@ -115,8 +109,8 @@
 				   }
 					self.verificarDescuento();
 			});
-						
-			
+	alert('salio del init');
+
 		},
 
 
@@ -140,13 +134,13 @@
 				}
 			}
 
-			// if ($.mobile.ModelLogin.descuento() == -1){
-			// 	if (self.DescPorc() > self.desctocliente()){
-			// 		alert('Descuento aplicado supera al permitido al cliente');
-			// 		self.DescPorc(0);
-			// 	}
+			if ($.mobile.ModelLogin.descuento() == -1){
+				if (self.DescPorc() > self.desctocliente()){
+					alert('Descuento aplicado supera al permitido al cliente');
+					self.DescPorc(0);
+				}
 
-			// }
+			}
 		},
 		
 		
@@ -249,7 +243,7 @@
 				calculo = ko.observable();
 				var c = self.cantidad() * self.precio();
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Aplicando Descuento Parcial y General al Producto.
@@ -264,7 +258,7 @@
 
                        	d = d + c ;
 						calculo(d);
-						return calculo();
+						return calculo().toFixed(2);
 					}, this);
 
 			// Total Neto Parcial.
@@ -273,7 +267,7 @@
 				var c = (parseFloat(self.totalBrutoParcial()) - parseFloat(self
 						.descuentoParcial()));
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Base Imponible Parcial.
@@ -285,7 +279,7 @@
 				else
 					c = parseFloat((self.cantidad() * self.precio())-self.descuentoParcial());
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Excento Parcial.
@@ -297,7 +291,7 @@
 				else
 					c = 0;
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Iva Parcial.
@@ -306,7 +300,7 @@
 				var c = parseFloat(self.baseImponibleParcial())
 						* (self.iva() / 100);
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Total Parcial.
@@ -314,7 +308,7 @@
 				calculo = ko.observable();
 				var c = parseFloat(self.baseImponibleParcial()+self.excentoParcial()+self.ivaParcial());
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 		},
 
@@ -330,7 +324,7 @@
 					total = total + parseFloat(w.totalBrutoParcial());
 				});
 				OSTotal(total);
-				return  OSTotal();
+				return  OSTotal().toFixed(2);
 			}, this);
 
 			// TotalDescuentoGeneral individual + descuento del cliente
@@ -341,7 +335,7 @@
 					total = total + parseFloat(w.descuentoParcial());
 				});
 				OSTotal(total);
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// Total Neto General
@@ -352,7 +346,7 @@
 					total = total + parseFloat(w.totalNetoParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalImponiblegeneral
@@ -363,7 +357,7 @@
 					total = total + parseFloat(w.baseImponibleParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalExcentogeneral
@@ -374,7 +368,7 @@
 					total = total + parseFloat(w.excentoParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalIVAGeneral
@@ -385,7 +379,7 @@
 					total = total + parseFloat(w.ivaParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalItemGeneral
@@ -401,7 +395,7 @@
 				 */
 
 				OSTotal(total);
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
             self.descuentog($.mobile.ModelTotalizar.totalDescuentoGlobal()/(self.totalBrutoGeneral()-self.totalDescuentoGeneral()));
 			$.mobile.ModelTotalizar.totalBrutoGeneral(self.totalBrutoGeneral());
@@ -435,7 +429,7 @@
 			this.codubic    = ko.observable(codubic);
 			this.detalleprd    = ko.observable(detalleprd);
 			this.esCC    = ko.observable(esCC);
-	
+
 		},
 
 		InsertarItemProducto : function(codigo, descrip, precio1, precio2,
@@ -538,14 +532,14 @@
 		guardarDispositivo : function() {
 			var numerod = 0;
 			var obsPedidos = $.mobile.ModelTotalizar.obsPedidos();
-            var totalDescuentoGlobal = $.mobile.ModelTotalizar.totalDescuentoGlobal();
 			var esCC = $.mobile.ModelTotalizar.esCC();
-	//		alert(esCC);
+			alert(esCC);
 		  if (esCC==true)
 			 esCC = 1;
           else
 			 esCC = 0;
-		//alert(esCC);
+			alert(esCC);
+            var totalDescuentoGlobal = $.mobile.ModelTotalizar.totalDescuentoGlobal();
 			$.mobile.SqLite
 					.transaction(function(tx) {
 						var consulta = 'Select Count(*) + 1 as cantidad From Documentos';
@@ -586,9 +580,7 @@
 											if (j == (self.items().length) - 1) {
 												alert('Pedido Almacenado en Dispositivo Mobil');
 												self.items.removeAll();
-												self.codclie("");
-
-
+												self.codclie("");											
 											}
 											j = j + 1;
 										});
@@ -613,12 +605,9 @@
 			self.detalleprd("");
 			self.DescPorc(0);
 			self.cantidad(0);
-			document.esCCForm.esCC.click(); 
-			document.esCCForm.esCC.click(); 
-
-},
-
-
+//			self.esCC(0);
+			
+		},
         CargaCliente: function(){
             $.mobile.changePage('#infocxc');
   	    },

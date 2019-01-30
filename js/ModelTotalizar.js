@@ -18,7 +18,7 @@
     		divcheque             : ko.observable(false),
     		divtransferencia      : ko.observable(false),
     		divdepobancario       : ko.observable(false),
-        moneda                : ko.observable(false),
+        esCC                  : ko.observable(false),
     		
     		//Generales
     		tipoFP: ko.observable(""),
@@ -51,7 +51,7 @@
     		
     		init : function()
 	        {
-self.moneda(false);
+
     	       $('#confirmar').live('pageinit',function()
                 {
     	    	   self.credis($.mobile.ModelCliente.clientesaldo());
@@ -158,8 +158,8 @@ self.moneda(false);
         		  self.obsPedidos("");
               self.totalDescuentoGeneral(0);
               self.totalDescuentoGlobal(0);
-              self.moneda(false);
-
+              self.totalDescuentoGlobalP(0);              
+              self.esCC(true);
       	     },
 
 	     	clickconfirmar : function(){	

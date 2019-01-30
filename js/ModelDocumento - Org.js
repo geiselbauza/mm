@@ -30,14 +30,12 @@
 		p1v: ko.observable(true),
 		p2v: ko.observable(true),
 		p3v: ko.observable(true),
-		esCC:ko.observable(true),
-
+	//	moneda: ko.observable("0"),
 		
 		init : function() {
 			$('#IngresoManual').live(
 					'pageinit',
 					function() {
-
 						self.TotalesParciales();
 						self.TotalesGenerales();
 						ko.applyBindings(self, document
@@ -45,7 +43,6 @@
 			 });
 
 			$('#items').live('pageinit', function() {
-
 				self.TotalesParciales();
 				self.TotalesGenerales();
 				ko.applyBindings(self, document.getElementById('items'));
@@ -58,7 +55,6 @@
 			});
 
 			$('#cantidad').live('pageinit', function() {
-
 				self.TotalesParciales();
 				self.TotalesGenerales();
 				ko.applyBindings(self, document.getElementById('cantidad'));
@@ -71,19 +67,16 @@
 			});
 
 			$('#descuento').live('pageinit', function() {
-
 				ko.applyBindings(self, document.getElementById('descuento'));
 			});
 
 
 			$('#detalle').live('pageinit', function() {
-
 				ko.applyBindings(self, document.getElementById('detalle'));
 			});
 
 
 			$('#totales').live('pageinit', function() {
-
 				ko.applyBindings(self, document.getElementById('totales'));
 			});
 
@@ -140,13 +133,13 @@
 				}
 			}
 
-			// if ($.mobile.ModelLogin.descuento() == -1){
-			// 	if (self.DescPorc() > self.desctocliente()){
-			// 		alert('Descuento aplicado supera al permitido al cliente');
-			// 		self.DescPorc(0);
-			// 	}
+			if ($.mobile.ModelLogin.descuento() == -1){
+				if (self.DescPorc() > self.desctocliente()){
+					alert('Descuento aplicado supera al permitido al cliente');
+					self.DescPorc(0);
+				}
 
-			// }
+			}
 		},
 		
 		
@@ -249,7 +242,7 @@
 				calculo = ko.observable();
 				var c = self.cantidad() * self.precio();
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Aplicando Descuento Parcial y General al Producto.
@@ -264,7 +257,7 @@
 
                        	d = d + c ;
 						calculo(d);
-						return calculo();
+						return calculo().toFixed(2);
 					}, this);
 
 			// Total Neto Parcial.
@@ -273,7 +266,7 @@
 				var c = (parseFloat(self.totalBrutoParcial()) - parseFloat(self
 						.descuentoParcial()));
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Base Imponible Parcial.
@@ -285,7 +278,7 @@
 				else
 					c = parseFloat((self.cantidad() * self.precio())-self.descuentoParcial());
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Excento Parcial.
@@ -297,7 +290,7 @@
 				else
 					c = 0;
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Iva Parcial.
@@ -306,7 +299,7 @@
 				var c = parseFloat(self.baseImponibleParcial())
 						* (self.iva() / 100);
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Total Parcial.
@@ -314,7 +307,7 @@
 				calculo = ko.observable();
 				var c = parseFloat(self.baseImponibleParcial()+self.excentoParcial()+self.ivaParcial());
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 		},
 
@@ -330,7 +323,7 @@
 					total = total + parseFloat(w.totalBrutoParcial());
 				});
 				OSTotal(total);
-				return  OSTotal();
+				return  OSTotal().toFixed(2);
 			}, this);
 
 			// TotalDescuentoGeneral individual + descuento del cliente
@@ -341,7 +334,7 @@
 					total = total + parseFloat(w.descuentoParcial());
 				});
 				OSTotal(total);
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// Total Neto General
@@ -352,7 +345,7 @@
 					total = total + parseFloat(w.totalNetoParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalImponiblegeneral
@@ -363,7 +356,7 @@
 					total = total + parseFloat(w.baseImponibleParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalExcentogeneral
@@ -374,7 +367,7 @@
 					total = total + parseFloat(w.excentoParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalIVAGeneral
@@ -385,7 +378,7 @@
 					total = total + parseFloat(w.ivaParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalItemGeneral
@@ -401,7 +394,7 @@
 				 */
 
 				OSTotal(total);
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
             self.descuentog($.mobile.ModelTotalizar.totalDescuentoGlobal()/(self.totalBrutoGeneral()-self.totalDescuentoGeneral()));
 			$.mobile.ModelTotalizar.totalBrutoGeneral(self.totalBrutoGeneral());
@@ -417,7 +410,7 @@
 		InsertarItemDocumento : function(codigo, descrip, cantidad, precio,
 				descuentoParcial, ivaParcial, totalParcial, totalBrutoParcial,
 				totalNetoParcial, baseImponibleParcial, excentoParcial,
-				porccliente,obsPedidos,codubic,detalleprd,esCC) {
+				porccliente,obsPedidos,codubic,detalleprd/*,moneda*/) {
 			var self = this;
 			this.coditem = ko.observable(codigo);
 			this.descrip = ko.observable(descrip);
@@ -434,8 +427,7 @@
 			this.obsPedidos = ko.observable(obsPedidos);
 			this.codubic    = ko.observable(codubic);
 			this.detalleprd    = ko.observable(detalleprd);
-			this.esCC    = ko.observable(esCC);
-	
+			//this.moneda		=ko.observable(moneda); //moneda $ 
 		},
 
 		InsertarItemProducto : function(codigo, descrip, precio1, precio2,
@@ -538,14 +530,8 @@
 		guardarDispositivo : function() {
 			var numerod = 0;
 			var obsPedidos = $.mobile.ModelTotalizar.obsPedidos();
-            var totalDescuentoGlobal = $.mobile.ModelTotalizar.totalDescuentoGlobal();
-			var esCC = $.mobile.ModelTotalizar.esCC();
-	//		alert(esCC);
-		  if (esCC==true)
-			 esCC = 1;
-          else
-			 esCC = 0;
-		//alert(esCC);
+			var totalDescuentoGlobal = $.mobile.ModelTotalizar.totalDescuentoGlobal();
+	//		var moneda = $.mobile.ModelTotalizar.moneda();
 			$.mobile.SqLite
 					.transaction(function(tx) {
 						var consulta = 'Select Count(*) + 1 as cantidad From Documentos';
@@ -564,8 +550,8 @@
 								.arrayForEach(
 										self.items(),
 										function(w) {
-                                        var sql = 'INSERT INTO DOCUMENTOS(tipodoc,numerod,fechae,linea,coditem,descrip,status,cantidad,codvend,codclie,precio,descuento,totalitem,estaproc,observacion,codubic,detalleprd,descuentog,esCC) '+
-										          'VALUES("A","' + numerod + '",datetime("now","localtime"),?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?)';
+                                        var sql = 'INSERT INTO DOCUMENTOS(tipodoc,numerod,fechae,linea,coditem,descrip,status,cantidad,codvend,codclie,precio,descuento,totalitem,estaproc,observacion,codubic,detalleprd,descuentog,moneda'+
+										          'VALUES("A","' + numerod + '",datetime("now","localtime"),?,?,?,?,?,?,?,?,?,?,0,?,?,?,?;?)';
 
                                                 	tx.executeSql(sql, [ j,
 													w.coditem(), w.descrip(),
@@ -574,9 +560,7 @@
 													self.codclie(), w.precio(),
 													w.descuentoParcial(),
 													w.totalParcial(),
-													obsPedidos,w.codubic(),w.detalleprd(),totalDescuentoGlobal,esCC]);
-
-
+													obsPedidos,w.codubic(),w.detalleprd(),totalDescuentoGlobal]);
 
 											var sql2 = 'UPDATE PRODUCTOS SET existen = existen - '
 													+ w.cantidad()
@@ -586,9 +570,7 @@
 											if (j == (self.items().length) - 1) {
 												alert('Pedido Almacenado en Dispositivo Mobil');
 												self.items.removeAll();
-												self.codclie("");
-
-
+												self.codclie("");											
 											}
 											j = j + 1;
 										});
@@ -613,12 +595,7 @@
 			self.detalleprd("");
 			self.DescPorc(0);
 			self.cantidad(0);
-			document.esCCForm.esCC.click(); 
-			document.esCCForm.esCC.click(); 
-
-},
-
-
+		},
         CargaCliente: function(){
             $.mobile.changePage('#infocxc');
   	    },

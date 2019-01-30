@@ -140,7 +140,7 @@
 			var N = 0;
 			var j = 1;			
 			var parametros = '{"parametro": "'+sqlwhere+'","coddepo": "'+coddepo+'"}';
-			alert(tabla+' '+sqlwhere);
+//			alert(tabla+' '+sqlwhere);
 			a = $.ajax({				
 				url: urlajax,
 				type: 'POST',
@@ -193,6 +193,7 @@
 						var numd = "";
 						var numdact = "";
 						var enviar = 0;
+
 						for(var i = 0; i < n; i++) {
 							numdact = rs.rows.item(i).numerod;
 							$.mobile.ModelDocumento.items.push(new $.mobile.ModelDocumento.InsertarItemDocumento(rs.rows.item(i).coditem, rs.rows.item(i).descrip, rs.rows.item(i).cantidad, rs.rows.item(i).precio, rs.rows.item(i).descuento, 0, 0, 0, 0, 0, 0, 0,rs.rows.item(i).observacion,rs.rows.item(i).codubic,rs.rows.item(i).detalleprd));
@@ -309,7 +310,8 @@
 						$.mobile.ModelDocumento.codvend(rs.rows.item(0).codvend);
 						$.mobile.ModelDocumento.observacion(rs.rows.item(0).observacion);
                         $.mobile.ModelDocumento.descuentog(rs.rows.item(0).descuentog);
-						for(var i = 0; i < n; i++)
+                        $.mobile.ModelDocumento.esCC(rs.rows.item(0).esCC);                        
+  						for(var i = 0; i < n; i++)
 							$.mobile.ModelDocumento.items.push(new $.mobile.ModelDocumento.InsertarItemDocumento(rs.rows.item(i).coditem, rs.rows.item(i).descrip, rs.rows.item(i).cantidad, rs.rows.item(i).precio, rs.rows.item(i).descuento, 0, 0, 0, 0, 0, 0, 0,rs.rows.item(i).observacion,rs.rows.item(i).codubic,rs.rows.item(i).detalleprd));
 						var cadena = ko.toJSON($.mobile.ModelDocumento);						
 						$.mobile.ModelDocumento.items.removeAll();
@@ -372,11 +374,6 @@
 
 
 		ObtenerImagenes: function(){},
-
-
-
-
-
 
         
 		ObtenerLista: function(){
