@@ -1,0 +1,26 @@
+PARA CREAR DEPENDECIA DEL SQLSERVER EN SERVICEMARKET
+------------------------------------------------------
+DESDE CMD
+
+
+PARA INSERTAR = SC CONFIG SERVICEMARKET DEPEND= MSSQLSERVER
+						
+
+PARA BORRAR = SC CONFIG SERVICEMARKET DEPEND= /
+
+
+para instalar servicio 
+----------------------------------------
+
+c:\pedidosweb\ServiceMarketMobil.exe /install
+   net start SERVICEMARKET 
+---------------------------------------------
+
+para registrar NetFramework En IIS
+----------------------------------------------
+c:\windows\Mirosoft.Net\framework\V 4.0.xxxxxx\aspnet_regiis.exe -i
+
+-----------------------------------------------------------------
+
+https://www.google.com/settings/security/lesssecureapps
+
