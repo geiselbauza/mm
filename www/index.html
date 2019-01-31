@@ -1,0 +1,1731 @@
+﻿<!DOCTYPE html>                                                                                 
+<html>
+	<head> 
+    	<title>App Mobil</title> 
+	    <meta charset="utf-8">	
+	    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    	<meta name="Access-Control-Allow-Origin" content="*">
+	    <link rel="stylesheet" href="css/jquery.mobile.structure-1.2.0.min.css" />
+	    <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" /> 
+	    <link rel="stylesheet" href="css/jquery.mobile.theme-1.2.0.min.css" />
+	    <link rel="stylesheet" href="css/mobilsaint.css" />
+	    <script src="js/jquery-1.7.2.min.js"></script>	
+	    
+	    <script type="text/javascript">
+			$(document).bind("mobileinit", function(){
+				$.mobile.defaultPageTransition = 'none';						
+			});			
+		</script>
+	    
+	    <script src="cordova.js"></script>	     
+	    <script src="cordova_plugins.js"></script>      
+      <script src="js/jquery.mobile-1.2.0.min.js"></script>
+	    <script src="js/knockout-2.1.0.js"></script>
+	    <script src="js/SqLite.js"></script>        	    
+
+        <script src="js/ModelTotalizar.js" type="text/javascript"></script>
+	    <script src="js/ModelDocumento.js" type="text/javascript"></script>
+	    <script src="js/ModelListaDocumentos.js" type="text/javascript"></script>
+	    <script src="js/ModelConfiguracion.js" type="text/javascript"></script>
+	    <script src="js/ModelLogin.js" type="text/javascript"></script>
+	    <script src="js/ModelCliente.js" type="text/javascript"></script>
+	    <script src="js/ModelProducto.js" type="text/javascript"></script>	    
+	    <script src="js/ModelInfoCxC.js" type="text/javascript"></script>
+	    <script src="js/ModelCxC.js" type="text/javascript"></script>
+	    <script src="js/ModelPageModal.js" type="text/javascript"></script>
+	    <script type="text/javascript" src="js/base64.js"></script>
+      <script type="text/javascript" src="js/json2.js"></script>
+
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ-Ev2U5LjWc2tshPxidMAEnAuuw44y0&callback=initMap"></script>
+
+    <!--  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v3"> </script>
+
+	    
+	    
+      <script src="js/ModelPagos.js" type="text/javascript"></script>
+	    -->	    	    
+	    <script src="js/ModelMenu.js" type="text/javascript"></script>
+
+
+	 	<style type="text/css">
+		.intro2 {
+			margin:0;
+			padding:0;
+			overflow:hidden;
+			background-color:#ffffff;
+ 	        background: url(/img/Caricatura2.png);
+            background-repeat:repeat-y;
+            background-position:center center;
+            background-attachment:scroll;
+            background-size:100% 100%;			
+		}
+		.ui-page {
+            background: transparent;
+        }
+        .ui-content{
+        background: transparent;
+        }
+        
+		.wrapper {
+			position:absolute;
+			top:8%;
+			left:8%;
+		}		
+	    .ui-dialog .ui-header .ui-btn-icon-notext { display:none;}
+	</style>
+		    
+	<script type="text/javascript">	     
+	     document.addEventListener("deviceready", onDeviceReady, false);
+         function onDeviceReady() {
+           navigator.splashscreen.hide();
+           document.addEventListener("menubutton", menuPulsado, true);  
+           document.addEventListener("backbutton", btnBackPulsado, true);
+         }        
+        
+         function menuPulsado() {
+            navigator.app.overrideBackbutton(false);            
+         }  
+         
+         function btnBackPulsado() {
+        	 navigator.app.overrideBackbutton(false);
+        	 alert('No');
+          }  
+	</script>	
+  </head>  
+  <body>
+ 
+
+
+<!-- PANTALLA LOGIN --> 
+     
+    <div data-role="page" id="login" data-transition="slideup">
+
+     <div data-role="header" data-position="fixed" data-theme="b">
+       <a data-icon="check" href="#" data-bind="{ click: clicksalir }">Salir</a><h1>Login</h1>
+     </div>
+
+    <div data-role="content">
+        <div data-bind="visible: divlogin">           
+           <div align="center" style = "color:red" data-bind="visible: usuarioclaveMsg">           
+              <label>* Usuario o Clave Invalida</label>              
+           </div>
+           
+           <div data-role="fieldcontain">           
+              <label for="usuario">Usuario</label>
+              <input  id="usuario" name="usuario" type="text" data-bind="value:codigo" />
+              <div align="center" style = "color:red" data-bind="visible: usuarioMsg">           
+                <label>* campo requerido</label>              
+              </div>           
+           </div>
+               
+           <div data-role="fieldcontain">
+               <label for="clave">Clave</label>
+               <input  id="clave" name="clave" type="password" data-bind="value: clave"/>           
+               <div align="center" style = "color:red" data-bind="visible: claveMsg">           
+                 <label>* campo requerido</label>              
+               </div>           
+           </div>
+            
+              
+           <div data-role="fieldcontain">
+			 <a href="#" data-bind="{ click: clickverificar }" id="loguearse" data-role="button" data-theme="b">Aceptar</a>
+		     <a href="#conexion"  id="btnEnvDat" data-role="button" data-theme="b">Config. Conex. al Servidor</a>		       
+ 	       </div>
+ 	      
+ 	                 	       
+ 	     </div>              
+ 	     
+ 	     <div data-bind="visible: divintro" align="center" id="intro">
+ 	       
+ 	      <!--	<p><strong>Aplicacion mobil para</strong></p>
+ 	      	    <p><strong> recepcion de pedidos</strong></p> 	 
+ 	      	    <p><strong> y </strong></p>
+ 	      	    <p><strong> manejo de cuentas por cobrar</strong></p> 	   
+ 	      <img src="img/LogoMM2.png">-->                   
+ 	      
+ 	      <img src="img/LogoMM2.png">
+           	       	      
+		 </div>
+ 	 </div>
+ </div>
+ 
+<!-- FIN PANTALLA LOGIN -->  
+
+<!-- PANTALLA DETALLE VENDEDORES -->
+
+	<div data-role="page" id="detvendedor">
+
+     <div data-role="header" data-position="fixed" data-theme="b">              
+       <a data-icon="back" href="#menu">Regresar</a><h1>Inf. del Vendedor</h1>
+     </div>
+
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true" data-theme="b" data-dividertheme="a">
+           <li data-role="list-divider" style="text-align:center">Inf. del Vendedor</li>
+           <li data-theme="b">
+              <p><strong>Codigo   : <span class='ui-li-aside' data-bind="text: codvenduser"></span></strong></p>
+              <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>                            
+              <p><strong>Nivel    : <span class='ui-li-aside' data-bind="text: nivel"></span></strong></p>
+              <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>              
+              <p><strong>Nombre   : <span class='ui-li-aside' data-bind="text: descripuser"></span></strong></p>
+              <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>
+              <p><strong>Vender con Precio 1: <span class='ui-li-aside' data-bind="text: preciovend1"></span></strong></p>
+              <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>
+              <p><strong>Vender con Precio 2: <span class='ui-li-aside' data-bind="text: preciovend2"></span></strong></p>
+              <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>
+              <p><strong>Vender con Precio 3: <span class='ui-li-aside' data-bind="text: preciovend3"></span></strong></p>
+              <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>
+              <p><strong>Descuento Asignado: <span class='ui-li-aside' data-bind="text: descuento"></span></strong></p>
+			  <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>
+              <p><strong>Ventas Negativo: <span class='ui-li-aside' data-bind="text: negativo"></span></strong></p>              
+              <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>
+              <p><strong>Autoriza Credito: <span class='ui-li-aside' data-bind="text: autorizacredito"></span></strong></p>
+			  <p><strong class='ui-li-aside'>---------------------------------------------------------------------------</strong></p>
+			  <p><strong>Maximo Items: <span class='ui-li-aside' data-bind="text: itemspedido"></span></strong></p>
+           </li>
+        </ul> 
+
+
+ 	 </div>
+ </div>
+
+<!-- FIN PANTALLA DETALLE VENDEDORES -->
+
+<!-- PANTALLA DETALLE DEL CLIENTE -->
+
+<div  data-role="page" id="vercliente">
+		<div data-role="header" data-position="fixed" data-theme="b">
+			  <a data-role="button" href="#infoclientes" data-icon="back">Atras</a>
+			  <h2><span>Detalle del cliente</span></h2>
+		</div>
+
+
+	  <div data-role="content">
+
+		<ul data-role="listview" id ="verClientedet" data-inset="true">
+			<li data-theme="b" >
+
+				<p><h2>Codigo: <span class='ui-li-aside' data-bind="text: clientecodigo"></span></h2></p>
+				<p>Descripcion:<span class='ui-li-aside' data-bind="text: clientedescrip"></span></p>
+				<p><h2>Representante: <span class='ui-li-aside' data-bind="text:clienterepresent"></span></h2></p>
+			<p><h2>Saldo: <span class='ui-li-aside' data-bind="text: clientesaldo"></span></h2></p>
+					<p><h2>Limite de Credito: <span class='ui-li-aside' data-bind="text:clientelimitecred"></span></h2></p>
+				<p><h2>Tipo de Precio: <span class='ui-li-aside' data-bind="text: clientetipopvp"></span></h2></p>
+				<p><h2>Dias de Credito: <span class='ui-li-aside' data-bind="text: diascred"></span></h2></p>
+			</li>
+		
+		</ul>
+	  </div>
+
+
+	  
+	<div data-role="footer" data-position="fixed" data-theme="c"  >
+	  <!-- GEOLOCALIZAR -->
+    <div  align="center"   data-bind="visible:visiblecoord">
+		  <a href="#" data-bind="{ click: clickpuntear }" id="puntear" data-role="button" data-theme="b">Geolocalizar</a>
+
+<!--         <ul data-role="listview" id ="geolocalizacion" data-inset="true">
+          <li>
+            <p>Latitud<span  class='ui-li-aside' data-bind="text: latitud"> </span></p>
+            <p>Longitud<span class='ui-li-aside' data-bind="text: longitud"></span></p>
+          </li>
+        </ul> -->
+	</div>
+
+  </div>
+<!-- MOSTRAR UBICACION-->
+    <div  align="center"  data-bind="visible:visibleboton" >
+      <a href="#" data-bind="{ click: dibujar }" id="mapp"  data-role="button" data-theme="b">Mostrar Ubicacion</a>
+    </div> 
+      <div  data-bind="visible:visiblemapa"  id = "mapa"  style="width: 150xp; height: 180px ">
+      </div>
+
+</div>
+
+<!-- <script type="text/javascript">
+  var divMapa = document.getElementById('mapa');
+  navigator.geolocation.getCurrentPosition(fn_ok,fn_mal);
+  function fn_mal() {}
+  function fn_ok(rta) {
+      var latitud = rta.coords.latitude;
+      var longitud = rta.coords.longitude;
+
+
+      var gLatLon = new google.maps.LatLng(latitud,longitud);
+
+      var objConfig = {
+          zoom: 17,
+          center: gLatLon
+      }
+
+      var gMapa = new google.maps.Map(divMapa,objConfig);
+      var objConfigMarker = {
+        position:gLatLon,
+        map:gMapa
+      }
+      var gMarker = new google.maps.Marker(objConfigMarker);
+  }
+</script> -->
+<!-- FIN PANTALLA DETALLE CLIENTES -->
+
+
+<!-- PANTALLA MENU -->
+
+
+<div data-role="page" id="menu">
+  <div data-role="header" data-position="fixed" data-theme="b">
+		<a data-role="button"  data-icon="back" href="#login">Inicio</a>
+		<h1>Menu</h1>
+  </div>
+
+  <div data-role="content">
+
+	<ul data-role="listview" data-inset="true" data-theme="b" data-dividertheme="a">
+	  <li data-role="list-divider" style="text-align:center">Menu Principal</li>
+	  <li><a data-bind="click: clickMenu.bind($data, '10', '#infoclientes')">Clientes</a></li>
+	  <li><a data-bind="click: clickMenu.bind($data, '9', '#infoproductosmain')">Productos</a></li>
+    <li><a data-bind="click: clickMenu.bind($data, '12', '#menuvisitas')">Visitas</a></li>
+	  <li><a data-bind="click: clickMenu.bind($data, '5', '#menupedidos')">Pedidos</a></li>
+	  <li><a data-bind="click: clickMenu.bind($data, '2', '#infoclientes')">Cuentas por Cobrar.</a></li>
+	  <li><a data-bind="click: clickMenu.bind($data, '3', '#menuconf')">Sincronizacion</a></li>
+	  <li><a data-bind="click: clickMenu.bind($data, '4', '')">Salir</a></li>
+	</ul>
+  </div>
+
+   <div data-role="footer" data-position="fixed" data-theme="c">
+	  <div  align="center">
+		  <a data-role="button"  data-icon="back" href="#detvendedor" data-bind="text: descripuser" data-theme="b">
+
+		  </a>
+	  </div>
+   </div>
+</div>
+
+<!-- FIN PANTALLA MENU -->
+
+<!-- PANTALLA MENU PEDIDOS-->
+
+ <div data-role="page" id="menupedidos">
+<div data-role="header" data-position="fixed" data-theme="b">
+        <a data-role="button"  data-icon="back" href="#menu">Menu</a>             
+        <h1>Menu Pedidos</h1>             
+</div>
+
+<div data-role="content">
+
+  <ul data-role="listview" data-inset="true" data-theme="b" data-dividertheme="a">
+      <li data-role="list-divider" style="text-align:center">Menu Pedidos</li>
+      <li><a data-bind="click: clickMenu.bind($data, '1', '#infoclientes')">Nuevo Pedido.</a></li>               
+      <li><a data-bind="click: clickMenu.bind($data, '6', '#listadocumentos')">Pedidos Sin Enviar.</a></li>         
+      <li><a data-bind="click: clickMenu.bind($data, '7', '#listadocumentos')">Pedidos Enviados.</a></li>
+      <li><a data-bind="click: clickMenu.bind($data, '11', '#listadocumentos')">Imprimir Pedidos.</a></li>
+    <!--  <li><a data-bind="click: clickMenu.bind($data, '8', '#listadocumentos')">Pedidos con Problemas.</a></li> -->                     
+  </ul>    
+ </div>
+</div>
+
+<!-- FIN PANTALLA MENU PEDIDOS-->
+
+<!-- PANTALLA MENU VISITAS-->
+
+ <div data-role="page" id="menuvisitas">
+<div data-role="header" data-position="fixed" data-theme="b">
+        <a data-role="button"  data-icon="back" href="#menu">Menu</a>             
+        <h1>Menu Visitas</h1>             
+</div>
+
+<div data-role="content">
+
+  <ul data-role="listview" data-inset="true" data-theme="b" data-dividertheme="a">
+      <li data-role="list-divider" style="text-align:center">Menu Visitas</li>
+      <li><a data-bind="click: clickMenu.bind($data, '10', '#infoclientes')">Nueva Visita.</a></li>               
+      <li><a data-bind="click: clickMenu.bind($data, '14', '#listadocumentos')">Visita Sin Enviar.</a></li>         
+      <li><a data-bind="click: clickMenu.bind($data, '15', '#listadocumentos')">Visita Enviadas.</a></li>
+      <li><a data-bind="click: clickMenu.bind($data, '16', '#listadocumentos')">Imprimir Visitas.</a></li>
+    <!--  <li><a data-bind="click: clickMenu.bind($data, '8', '#listadocumentos')">Pedidos con Problemas.</a></li> -->                     
+  </ul>    
+ </div>
+</div>
+
+<!-- FIN PANTALLA MENU VISITAS-->
+
+
+
+
+<!-- PANTALLA CLIENTES -->
+
+
+   <div data-role="page" id="infoclientes">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#menu" data-icon="back">Atras</a>
+                            
+			 <h1>Elija Cliente</h1>
+        </div>
+     
+	  <div data-role="content">
+		<input type="search" data-bind="value: clientetofind, valueUpdate: 'afterkeydown', event: { keypress: keyOnEnter }"/>
+		<ul data-role="listview" data-inset="true" data-theme="c" data-filter="false" data-bind="foreach: clientes">
+           <li>
+				<a href="#" data-bind="{ click: $parent.AsignarCliente }">
+				   <p><strong>Código: <span data-bind="text: codigo"></span></strong></p>
+				   <p><strong>Descripción: <span data-bind="text: descrip"></span></strong></p>
+				   <p><strong>Limite de Crédito:<span data-bind="text: saldo"></span></strong></p>
+				   <p><strong>Saldo: <span data-bind="text: saldo"></span></strong></p>
+				   <a data-bind="{ click: $parent.AsignarCliente }"></a>				 
+				 </a>				            
+			</li>
+		</ul>
+     </div>
+
+     <div data-role="footer" data-theme="b" data-bind="visible: visiblefooter"  >
+      <div data-role="navbar"  >
+           <ul>
+               <div>
+                  <li data-bind="visible: visibleatras"><a name="buttonatras" id = "buttonatras" href="#" data-bind="{ click: clickatras }"  data-icon="arrow-l"  ></a></li>
+               </div>     
+
+               <div >
+                 <li data-bind="visible: visibleadelante"><a href="#" data-bind="{ click: clickadelante }" data-icon="arrow-r" ></a></li>
+               </div>     
+           </ul>
+        </div>     
+     </div>
+   </div>
+
+<!-- FIN PANTALLA CLIENTES -->
+
+
+
+<!-- PANTALLA PRODUCTOS MANUAL -->
+   
+   <div data-role="page" id="busqproducto">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" data-rel="back" data-icon="back">Atras</a>  
+  	         <h1>Elija Producto</h1>        
+        </div>
+
+     
+      <div data-role="content">
+       <input type="search" data-bind="value: productotofind, valueUpdate: 'afterkeydown', event: { keypress: keyOnEnter }" />
+		<ul data-role="listview" data-inset="true" data-theme="c" data-filter="false" data-bind="foreach: productos">
+			<li>
+				<a href="#" data-bind="{text: codigo, text: descrip, click: $parent.AsignarProducto}"></a>				            
+			</li>
+		</ul>                  
+     </div>
+      
+     <div data-role="footer" data-theme="b" data-bind="visible: visiblefooter"  >
+      <div data-role="navbar"  >
+           <ul>
+               <div>
+                  <li data-bind="visible: visibleatras"><a name="buttonatras" id = "buttonatras" href="#" data-bind="{ click: clickatras }"  data-icon="arrow-l"  ></a></li>
+               </div>     
+
+               <div >
+                 <li data-bind="visible: visibleadelante"><a href="#" data-bind="{ click: clickadelante }" data-icon="arrow-r" ></a></li>
+               </div>     
+           </ul>
+        </div>     
+     </div>
+   </div>
+
+
+<!-- FIN PANTALLA PRODUCTOS MANUAL -->
+
+<!-- PANTALLA PRODUCTOS MAIN -->
+
+   <div data-role="page" id="infoproductosmain">
+		<div data-role="header" data-position="fixed" data-theme="b">
+			  <a data-role="button" href="#menu" data-icon="back">Atras</a>
+			 <h1>Elija Item </h1>
+
+  </div>
+
+
+	  <div data-role="content">
+	   <input type="search" data-bind="value: productotofind, valueUpdate: 'afterkeydown', event: { keypress: keyOnEnter }" />
+		<ul data-role="listview" data-inset="true" data-theme="c" data-filter="false" data-bind="foreach: productos">
+			<li>
+				<a href="#" data-bind="{ click: $parent.AsignarProducto }">
+				   <p><strong>Descrip   : <span data-bind="text: descrip"></span></strong></p>
+				   <p><strong>Existencia: <span data-bind="text: existen"></span></strong></p>
+           <div data-bind="visible: viscosto"> <p><strong>Costo: <span data-bind="text: costact"></span></strong></p> </div>
+				   <a data-bind="{ click: $parent.AsignarProducto }"></a>
+				</a>
+			</li>
+		</ul>
+	 </div>
+
+	 <div data-role="footer" data-theme="b" data-bind="visible: visiblefooter"  >
+	  <div data-role="navbar"  >
+		   <ul>
+			   <div>
+				  <li data-bind="visible: visibleatras"><a name="buttonatras" id = "buttonatras" href="#" data-bind="{ click: clickatras }"  data-icon="arrow-l"  ></a></li>
+			   </div>
+
+			   <div >
+				 <li data-bind="visible: visibleadelante"><a href="#" data-bind="{ click: clickadelante }" data-icon="arrow-r" ></a></li>
+			   </div>
+		   </ul>
+		</div>
+	 </div>
+	 <div data-role="navbar"  >
+		 <h2><span data-bind=""></span></h2>
+	 </div>
+   </div>
+
+
+<!-- FIN PANTALLA PRODUCTOS MAIN -->
+
+
+<!-- PANTALLA PRODUCTOS -->
+
+   <div data-role="page" id="infoproductos">
+		<div data-role="header" data-position="fixed" data-theme="b">
+			  <a data-role="button" href="#" data-bind="{ click: clicksalir }" data-icon="back">Cancelar</a>
+			 <h1>Elija Item </h1>
+
+
+			<div data-role="navbar">
+			   <ul>
+					<li><a href="#" data-bind="{ click: CargaCliente }" class="ui-btn-active ui-state-persist" ><span data-bind="text: desclie"></span></a></li>
+
+			   </ul>
+			</div>
+
+			<div data-role="navbar">
+			   <ul>
+					<li><a href="#infoproductos"   class="ui-btn-active ui-state-persist" >Productos</a></li>
+					<li data-bind="visible: esinfo"><a href="#items" >Items</a></li>
+			   </ul>
+			</div>
+	
+	</div>
+
+
+	  <div data-role="content">
+	   <input type="search" data-bind="value: productotofind, valueUpdate: 'afterkeydown', event: { keypress: keyOnEnter }" />
+		
+			<ul data-role="listview" data-inset="true" data-filter="false" data-bind="foreach: productos">
+							
+			  	<li class="galeria_item" >
+			  	<a class="" data-bind="{ click: $parent.AsignarProducto }">
+			  	    <!-- img class="galeria__img" hspace="0" vspace="0" width="100" height="100" top="0" src="../www/img/N-870-L.jpg"> -->
+						  <p><strong><span data-bind="text: descrip"></span></strong></p>
+					    <p><strong>Existencia : <span data-bind="text: existen"></span></strong></p>
+			   			<div data-bind="visible: viscosto"><p><strong>Costo: <span data-bind="text: costact"></span></strong></p></div>
+              <a class="" data-bind="{ click: $parent.AsignarProducto }"></a>
+          </a>
+			   	
+				</li>
+
+			</ul>
+	 </div>
+
+	 <div data-role="footer" data-theme="b" data-bind="visible: visiblefooter"  >
+	  <div data-role="navbar"  >
+		   <ul>
+			   <div>
+				  <li data-bind="visible: visibleatras"><a name="buttonatras" id = "buttonatras" href="#" data-bind="{ click: clickatras }"  data-icon="arrow-l"  ></a></li>
+			   </div>
+
+			   <div >
+				 <li data-bind="visible: visibleadelante"><a href="#" data-bind="{ click: clickadelante }" data-icon="arrow-r" ></a></li>
+			   </div>
+		   </ul>
+		</div>
+	 </div>
+	 <div data-role="navbar"  >
+		 <h2><span data-bind=""></span></h2>
+	 </div>
+   </div>
+
+
+<!-- FIN PANTALLA PRODUCTOS 2 -->
+
+<!-- PANTALLA  DETALLE DE PRODUCTOS -->
+
+   <div  data-role="page" id="verproducto">
+		<div data-role="header" data-position="fixed" data-theme="b">
+              <a data-role="button" href="#infoproductosmain" data-icon="back">Atras</a>  
+			  <h2><span>Detalle de producto </span></h2>
+	</div>
+
+
+	  <div data-role="content">
+
+	  <ul data-role="listview" id ="verProductosdet" data-inset="true">
+         <li data-theme="b" >           
+			Codigo:<span class='ui-li-aside' data-bind="text: codigo"></span>
+		 </li>
+		 <li data-theme="b" >
+			Descripcion:<p><span class='ui-li-aside' data-bind="text: descrip"></span></p>
+         </li>
+         <li data-theme="b" >           
+            Unidad:<span class='ui-li-aside' data-bind="text: unidad"></span>          
+		 </li>
+         <li data-theme="b" >           
+            Existencia:<span class='ui-li-aside' data-bind="text: existen">0.0</span>          
+		 </li>
+         <li data-theme="b" data-bind="visible: visp1">          
+			Precio1 + iva:<span class='ui-li-aside' data-bind="text: p1i">0.0</span>
+         </li>
+		 <li data-theme="b"  data-bind="visible: visp2">
+            Precio2 + iva:<span class='ui-li-aside' data-bind="text: p2i">0.0</span>          
+         </li> 
+		 <li data-theme="b" data-bind="visible: visp3">
+            Precio3 + iva:<span class='ui-li-aside' data-bind="text: p3i">0.0</span>          
+		 </li>
+		 <li data-theme="b" data-bind="visible: viscosto">
+            Costo(Bs):<span class='ui-li-aside' data-bind="text: costact">0.0</span>          
+         </li>
+		 <li data-theme="b" data-bind="visible: viscosto">
+			cfob($):<span class='ui-li-aside' data-bind="text: cfob">0.0</span>
+		 </li>
+		 <li data-theme="b" data-bind="visible: viscosto">
+			Factor(Bs x $):<span class='ui-li-aside' data-bind="text: factor">0.0</span>
+		 </li>
+
+		</ul>
+	 </div>
+   </div>
+
+<!-- FIN PANTALLA DETALLE PRODUCTOS -->
+
+
+
+<!-- PANTALLA ITEMS CARGADOS -->
+
+<div data-role="page" id="items">
+		<div data-role="header" data-position="fixed" data-theme="b">
+			  <a data-role="button" href="#" data-bind="{ click: clicksalir }" data-icon="back">Cancelar</a>
+			 <h1>Elija Item</h1>
+			 <a data-icon="check" href="#" data-bind="{ click: clicktotalizar }">Totalizar</a>
+
+			<div data-role="navbar">
+			   <ul>
+					<li><a href="#" data-bind="{ click: CargaCliente }" class="ui-btn-active ui-state-persist" ><span data-bind="text: desclie"></span></a></li>
+			   </ul>
+			</div>
+
+        <div data-role="navbar">
+		   <ul>
+				<li><a href="#infoproductos"   >Productos</a></li>
+				<li><a href="#items"   class="ui-btn-active ui-state-persist">Items</a></li>
+           </ul>
+		</div>
+	</div>
+
+     
+      <div data-role="content">
+      <div style="height: 600px; overflow-y: scroll;">      
+       <ul data-role="listview" data-inset="true" data-fastscroll="true">
+            <li data-role="list-divider" data-theme="c" style='text-align:center'>Items<p><strong class='ui-li-aside'>Total: <span  data-bind="text: totalItemGeneral"></span></strong></p></li>
+            <!-- ko foreach: items -->
+            <li data-theme="c">
+              <a href="#">
+              <p><h2><span data-bind="text: descrip"></span></h2></p> 
+              <p><strong>Codigo   : <span data-bind="text: coditem"></span></strong></p> 
+              <p><strong>Precio   : <span data-bind="text: precio"></span></strong></p> 
+              <p><strong>Cantidad : <span data-bind="text: cantidad"></span></strong></p>               
+			  <p><strong>Descuento: <span data-bind="text: descuentoParcial"></span></strong></p>
+              <p><strong>Impuesto : <span data-bind="text: ivaParcial"></span></strong></p> 
+              <p><strong>Total    : <span data-bind="text: totalParcial"></span></strong></p>
+              <p><strong>Detalle  : <span data-bind="text: detalleprd"></span></strong></p>
+              <a data-bind="{ click: $parent.RemoverItem }" data-icon="delete"></a> 
+              </a> 
+            </li>
+            <!-- /ko -->
+       </ul>
+       </div>     
+     </div>
+   </div>
+
+<!-- FIN PANTALLA ITEMS CARGADOS -->
+
+
+
+
+
+ 
+<!-- PANTALLA CANTIDAD -->
+
+   <div data-role="page" id="cantidad">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#infoproductos" data-icon="back">Cancelar</a>  
+              <h2><span data-bind="text: descrip"></span></h2>
+  	         
+             <a data-icon="check" href="#" data-bind="{ click: clickguardar }">Guardar</a>
+             
+        <div data-role="navbar">
+           <ul>
+				<li><a href="#cantidad"   class="ui-btn-active ui-state-persist" >Precio</a></li>
+                <li><a href="#detalle"    >Detalle</a></li>
+                <li><a href="#descuento"  >Descuento</a></li>
+                <li><a href="#totales"  >Totales</a></li>
+           </ul>
+        </div>
+    </div>
+
+     
+      <div data-role="content">
+      
+         <div data-role="fieldcontain">
+              <strong>
+                   <label for="codigo">Codigo:</label>
+              </strong>
+              <span data-bind="text: codprod">
+         </div>
+      
+      <br>
+         
+         <div data-role="fieldcontain">
+            <strong>
+                   <label for="descripcion">Descripcion:</label>
+            </strong>
+            <span data-bind="text: descrip">
+      </div> 
+      
+      <br>
+      
+      <div data-role="fieldcontain">
+           <strong><label for="existencia">Existencia:</label></strong>
+		   <span data-bind="text: existen">
+      </div>
+      <br>
+      
+      <div data-role="fieldcontain">                        
+             <strong><label for="precios">Precio</label></strong>
+              <fieldset data-role="controlgroup" data-type="horizontal" align="center" data-mini="true">
+                 <div data-bind="visible: p1v">
+                    <input id="r1" type="radio" name="tipoprecio"   data-bind="value: precio1, checked: precio"/>
+                    <label for="r1">P1:<span data-bind="text: precio1i"></span></label>
+                 </div>
+                 <div data-bind="visible: p2v"> 
+                    <input id="r2" type="radio" name="tipoprecio"   data-bind="value: precio2, checked: precio"/> 
+                    <label for="r2">P2:<span data-bind="text: precio2i"></span></label>
+                 </div>
+                 <div data-bind="visible: p3v">
+                    <input id="r3" type="radio" name="tipoprecio"   data-bind="value: precio3, checked: precio"/>
+                    <label for="r3">P3:<span data-bind="text: precio3i"></span></label>
+                 </div>
+              </fieldset>              
+      </div>
+      <br>
+      <div data-role="fieldcontain">
+              <strong><label for="cantidad">Cantidad</label></strong><br> 
+              <input  id="cantidad" name="cantidad" type="number" data-bind="value:cantidad,valueUpdate:'afterkeyup'"/>
+            <!--   <input  id="cantidad1" name="cantidad1" type="number" data-bind="value:cantidad" readonly/> --> 
+                            
+      </div>        
+     </div>
+   </div>
+
+<!-- FIN PANTALLA CANTIDAD -->
+
+
+<!-- PANTALLA DETALLE -->
+
+
+<div data-role="page" id="detalle">
+
+    <div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#infoproductos" data-icon="back">Cancelar</a>  
+              <h2><span data-bind="text: descrip"></span></h2>
+  	         
+             <a data-icon="check" href="#" data-bind="{ click: clickguardar }">Guardar</a>
+             
+        <div data-role="navbar">
+           <ul>
+                <li><a href="#cantidad"   class="ui-btn-active ui-state-persist" >Precio</a></li>
+                <li><a href="#detalle"    >Detalle</a></li>
+                <li><a href="#descuento"  >Descuento</a></li>
+                <li><a href="#totales"  >Totales</a></li>
+           </ul>
+        </div>
+        </div>
+      <div data-role="content">
+              <div data-role="fieldcontain">                 
+                   <label for="detalle">Detalle</label></br>
+                    <textarea id="detalle" name="detalle" data-bind="value:detalleprd,valueUpdate:'afterkeyup'"> </textarea>
+
+              </div>              
+      </div>
+      
+	  <div data-role="footer" data-theme="b">
+          <h1></h1>
+      </div>
+            
+</div>
+
+<!-- FIN PANTALLA DETALLE -->
+
+
+
+
+<!-- PANTALLA DESCUENTOS -->
+
+
+<div data-role="page" id="descuento">
+
+    <div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#infoproductos" data-icon="back">Cancelar</a>  
+              <h2><span data-bind="text: descrip"></span></h2>
+  	         
+             <a data-icon="check" href="#" data-bind="{ click: clickguardar }">Guardar</a>
+             
+        <div data-role="navbar">
+           <ul>
+                <li><a href="#cantidad"   class="ui-btn-active ui-state-persist" >Precio</a></li>
+                <li><a href="#detalle"    >Detalle</a></li>
+                <li><a href="#descuento"  >Descuento</a></li>
+                <li><a href="#totales"  >Totales</a></li>
+           </ul>
+        </div>
+        </div>
+	  <div data-role="content">
+              <div data-role="fieldcontain">                 
+                   <label for="descuento">Descuento (%)</label></br>
+                   <input id="descuento" name="descuento" type="number" data-bind="value:DescPorc"/>
+              </div>              
+      </div>
+      
+      <div data-role="footer" data-theme="b">
+          <h1></h1>
+      </div>
+            
+</div>
+
+<!-- FIN PANTALLA DESCUENTOS -->
+
+
+
+<!-- PANTALLA TOTALES DEL ITEM-->
+
+<div data-role="page" id="totales">
+
+    <div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#infoproductos" data-icon="back">Cancelar</a>  
+              <h2><span data-bind="text: descrip"></span></h2>
+  	         
+             <a data-icon="check" href="#" data-bind="{ click: clickguardar }">Guardar</a>
+
+
+        <div data-role="navbar">
+           <ul>
+                <li><a href="#cantidad"   class="ui-btn-active ui-state-persist" >Precio</a></li>
+                <li><a href="#detalle"    >Detalle</a></li>
+				<li><a href="#descuento"  >Descuento</a></li>
+                <li><a href="#totales"  >Totales</a></li>
+           </ul>
+        </div>
+        </div>
+
+      <div data-role="content">
+        <ul data-role="listview" id ="listaDiaria" data-inset="true" data-split-icon = "delete"> 
+                   
+         <li data-theme="b" >           
+            Total Bruto:<span class='ui-li-aside' data-bind="text:totalBrutoParcial"> 0.00</span>          
+         </li>         
+         <li data-theme="b" >           
+            Descuento:<span class='ui-li-aside' data-bind="text:descuentoParcial">0.00</span>          
+         </li>
+         <li data-theme="b" >           
+            Total Neto:<span class='ui-li-aside' data-bind="text:totalNetoParcial">0.00</span>          
+         </li>
+         <li data-theme="b" >           
+            Impuesto:<span class='ui-li-aside' data-bind="text:ivaParcial">0.00</span>          
+         </li>
+         <li data-theme="b" >           
+            Total Item: <span class='ui-li-aside' data-bind="text:totalParcial">0.00</span>          
+         </li>
+ <!--         <li data-theme="b" >       -->
+ <!--            Total General: <span class='ui-li-aside' data-bind="text:totalItemGeneral">0.00</span>   -->
+ <!--         </li>    -->
+      </ul>
+      </div>
+      <div data-role="footer" data-theme="b">
+      <h1></h1>
+	  </div>
+</div>
+
+
+<!-- FIN PANTALLA TOTALES DEL ITEM-->
+
+
+<!-- PANTALLA CONFIRMAR -->
+
+
+<div data-role="page" id="confirmar">
+
+  	<div data-role="header" data-position="fixed" data-theme="b">
+  			 <a data-icon="back"  href="#" data-bind="{ click: clickatras }">Cancelar</a>
+  				  <h2><span>Totalizar</span></h2>
+  			 <a data-icon="check" href="#" data-bind="{ click: clickconfirmar }">Confirmar</a>
+
+  	</div>
+
+
+    <div data-role="content" >
+       <span><label for="totalDescuentoGlobalP">Descuento(%)</label></span>
+      <fieldset class="ui-grid-a">
+          <div class="ui-block-a">
+                  <input id="totalDescuentoGlobalP" name="totalDescuentoGlobalP" type="number" min="0" max="100" step="0.1" data-inline="true" style="width:150px; height:40px"  data-bind="value:totalDescuentoGlobalP" vertical-align:"middle" />
+          </div>
+          <div class="ui-block-b">
+                  <a data-theme="b" data-role="button" data-icon="grid" href="#" class="center-button" data-inline="true" data-bind="{ click: keyOnEnterDesc }">Calcular</a>
+          </div>
+      </fieldset>
+    		<ul data-role="listview" id ="totales" data-inset="true" data-split-icon = "delete">
+            <li data-theme="b" >           
+    			     Total-Bruto<span class='ui-li-aside' data-bind="text:totalBrutoGeneral">0.00</span>
+    		    </li>
+        		<li data-theme="b" >
+        			 Descuento items<span class='ui-li-aside' data-bind="text:totalDescuentoGeneral">0.00</span>
+        		</li>
+    		    <li data-theme="b" >
+    			     Descuento global<span class='ui-li-aside' data-bind="text:totalDescuentoGlobal">0.00</span>
+    		    </li> 
+    		    <li data-theme="b" >           
+               Total-Neto<span class='ui-li-aside' data-bind="text:totalNetoGeneral">0.00</span>          
+            </li>          
+            <li data-theme="b" >           
+    			     Base Imponible<span class='ui-li-aside' data-bind="text:totalImponibleGeneral">0.00</span>
+            </li>
+            <li data-theme="b" >           
+                Total Exento<span class='ui-li-aside' data-bind="text:totalExcentoGeneral">0.00</span>          
+            </li>
+            <li data-theme="b" >           
+                Impuesto<span class='ui-li-aside' data-bind="text:totalIVAGeneral">0.00</span>          
+            </li>           
+            <li data-theme="b" >           
+                Total <span class='ui-li-aside' data-bind="text:totalItemGeneral">0.00</span>          
+            </li>                  
+    		</ul>      
+
+<form name="esCCForm"> 		
+		<!-- <span data-bind="text: esCC"></span> -->
+        <input id="esCC" name="esCC" type="checkbox"  data-bind="checked:esCC" >
+        <label for="esCC"> Es cuenta clave </label>
+</form>    
+
+        Credito Disponible:<span data-bind="text: credis"></span><br>
+
+
+
+        <label for="observacion">Observacion:</label>
+        <textarea id="obsPedidos" name="obsPedidos" data-bind="value:obsPedidos,valueUpdate:'afterkeyup'"> </textarea>
+
+    </div>
+      
+       
+
+	  <div data-role="footer" data-position="fixed" data-theme="b">
+			<div data-role="navbar">
+			   <ul>
+					 <li><a href="#" data-bind="{ click: CargaCliente }" class="ui-btn-active ui-state-persist" ><span data-bind="text: desclie"></span></a></li>
+			   </ul>
+			</div>
+    </div>
+</div>
+
+
+
+<!-- FIN PANTALLA CONFIRMAR -->
+
+
+<!-- PANTALLA INGRESO MANUAL -->
+
+<div data-role="page" id="IngresoManual">
+
+    <div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#menu" data-icon="back" data-bind="{ click: clickcancelar }">Cancelar</a>  
+                	         <h2><span> ...Carga...</span></h2>
+             <a data-icon="check" href="#confirmar" >Guardar</a>
+    </div>
+
+
+      <div data-role="content">
+      
+         <div data-role="fieldcontain">
+         <label for="codigo" data-inline="true">Codigo:</label>
+              <div >                
+                <input  id="idcodprod99" name="namecodprodlote" type="number" data-bind="value:codprod" data-inline="true"/>
+                <a href="#busqproducto" id="infopro" data-role="button"  data-theme="b" data-inline="true">...</a>  
+              </div>                      
+              
+              <div>
+                <label for="descripcion" data-inline="true">Descripcion:</label>
+                <strong>
+                   <p>
+                       <span id = "iddescrip" data-bind="text: descrip"></span>
+                   </p>
+                </strong>                 
+                <label for="existencia" data-inline="true">Existencia:</label>
+                <strong>
+                   <p>
+                       <span id = "idexist" data-bind="text: existen"></span>
+                   </p>
+                </strong>
+              </div>
+         </div>
+  
+         <div data-role="fieldcontain">           
+              <label for="cantidad" data-inline="true">Cantidad:</label>
+              <div>              
+                 <input  id="canPro99" name="cantidad99" type="number" data-bind="" data-inline="true"/>
+              </div>                       
+         </div>
+         
+         <div data-role="fieldcontain">
+		     <a href="#" data-bind="{ click: clickguardar }" id="agregar" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Agregar</a> 
+ 	     </div>
+ 	     
+ 	     
+ 	     
+      <div data-role="fieldcontain">
+          <ul data-role="listview" data-inset="true" data-theme="b" data-filter="false">          
+        <li data-role="list-divider" data-theme="b" style='text-align:center'>Items<p><strong class='ui-li-aside'>Total: <span data-bind="text: totalItemGeneral" ></span></strong></p></li>
+		  <!-- ko foreach: items -->
+            <li data-theme="c">
+              <a href="#">
+              <p><h2><span data-bind="text: descrip"></span></h2></p> 
+              <p><strong>Codigo   : <span data-bind="text: coditem"></span></strong></p> 
+              <p><strong>Precio   : <span data-bind="text: precio"></span></strong></p> 
+              <p><strong>Cantidad : <span data-bind=""></span></strong></p> 
+              <p><strong>Descuento: <span data-bind="text: descliente"></span>%</strong></p> 
+              <p><strong>Total    : <span data-bind="text: totalNetoParcial"></span></strong></p>
+              <a data-bind="{ click: $parent.RemoverItem }" data-icon="delete"></a> 
+              </a> 
+            </li>
+            <!-- /ko -->
+		</ul> 
+		</div>
+</div>
+
+<div data-role="footer" data-position="fixed" data-theme="b">              
+   <h2><span data-bind="text: desclie"></span></h2>
+</div>
+
+</div>
+
+<!-- FIN PANTALLA INGRESO MANUAL -->
+
+
+<!-- PANTALLA LISTA DOCUMENTOS  -->
+
+<div data-role="page" id="listadocumentos">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#menupedidos" data-icon="arrow-l">Atras</a>  
+  	         <h1>...Documentos...</h1>             
+
+        </div>
+
+     
+      <div data-role="content">
+       <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider" data-theme="c" style='text-align:center'>Documentos<p><strong class='ui-li-aside'></strong></p></li>
+            <!-- ko foreach: documentos -->
+            <li data-theme="c">
+              <a href="#" data-bind="{ click: $parent.mostrardetalle }">              
+              <p><strong>Cliente  : <span data-bind="text: cliente"></span></strong></p> 
+              <p><strong>Items    : <span data-bind="text: lineas"></span></strong></p> 
+              <p><strong>Total    : <span data-bind="text: total"></span></strong></p>
+              <a data-bind="{ click: $parent.borrarpedidodevice }" data-icon="delete"></a>              
+              </a> 
+            </li>
+            <!-- /ko -->
+        </ul>
+      
+                 
+     </div>
+   </div>
+
+<!-- FIN PANTALLA LISTA DOCUMENTOS  -->
+   
+
+
+<!-- PANTALLA LISTA DE ITEMS -->
+   
+<div data-role="page" id="lista_items">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+             <a data-role="button" href="#listadocumentos" data-icon="back">Atras</a>  
+  	           <h1>Lista de Items</h1>
+             
+      	         <a data-icon="check" href="#" data-bind="{ click: EnviarPedido }"> <span data-bind="text: enviarimprimir"></span></a>  	           	
+           	                 
+        </div>
+
+      <div data-role="content">     
+       <ul data-role="listview" data-inset="true" data-theme="c" data-filter="false">
+            <li data-role="list-divider" data-theme="c" style='text-align:center'>Items</li>
+            <!-- ko foreach: items -->
+            <li data-theme="c">
+              <p><span data-bind="text: descrip"></span></p>               
+              <p><strong>Precio   : <span data-bind="text: precio"></span></strong></p> 
+              <p><strong>Cantidad : <span data-bind="text: cantidad"></span></strong></p>               
+              <p><strong>Descuento: <span data-bind="text: descuento"></span></strong></p>               
+              <p><strong>Total    : <span data-bind="text: totalitem"></span></strong></p>               
+              <p><strong>Detalle  : <span data-bind="text: detalleprd"></span></strong></p>               
+            </li>
+            <!-- /ko -->
+        </ul>                         
+     </div>     
+   </div>
+
+<!-- FIN PANTALLA LISTA DE ITEMS -->
+
+<!-- PANTALLA LISTA DE ITEMS DE CXC-->
+   
+<div data-role="page" id="lista_items_CxC">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+			 <a data-role="button" href="#infocxc" data-icon="back">Atras</a>
+  	           <h1>Lista de Items</h1>  	           	           	           	                 
+       </div>
+        
+        
+        <div data-role="content">
+             
+       <ul data-role="listview" data-inset="true" data-theme="c" data-filter="false">
+            <li data-role="list-divider" data-theme="c" style='text-align:center'>Items del Documento</li>
+            <!-- ko foreach: items -->
+            <li data-theme="c">                             
+              <p><strong>Descripcion   : <span data-bind="text: descrip"></span></strong></p> 
+              <p>Cantidad : <span data-bind="text: cantidad"></span></p>               
+              <p>Precio: <span data-bind="text: precio"></span></p>               
+              <p>Total    : <span data-bind="text: totalitem"></span></p>               
+            </li>
+            <!-- /ko -->
+        </ul>                         
+     </div>     
+		
+		                  
+     </div>
+
+               
+   </div>
+
+<!-- FIN PANTALLA LISTA DE ITEMS DE CXC-->
+
+
+
+<!-- --------------------------------------------------- PANTALLAS PARA CUENTAS X COBRAR----------------------------------------------- -->
+
+
+<!-- PANTALLA INFO CxC -->
+
+
+   <div data-role="page" id="infocxc">
+		<div data-role="header" data-position="fixed" data-theme="b">
+		<a data-role="button" href="#" data-bind="{ click: clicksalir }" data-icon="back">Atras</a>
+
+			 <h1>Cuentas por Cobrar</h1>
+
+
+		<div data-role="navbar">
+		   <ul>
+				<li><a href="#"   class="ui-btn-active ui-state-persist" >Elija Cuenta</a></li>
+			   <!-- <li><a href="#itemspagos"  >Items</a></li>     orlando href="#itemspagos" -->
+		   </ul>
+		</div>
+
+   </div>
+
+	  <div data-role="content">
+	   <!-- <input type="search" data-bind="value: cxctofind, valueUpdate: 'afterkeydown', event: { keypress: keyOnEnter }" />  -->
+		<ul data-role="listview" data-inset="true" data-theme="c" data-filter="false" >
+		  <li data-role="list-divider" data-theme="c" style='text-align:left'>
+			 <p><h2><strong>Descripción: <span data-bind="text:cliente"></span></strong></h2></p>
+			 <p><h2><strong>Representante: <span data-bind="text:represent"></span></strong></h2></p>
+			 <p><h2><strong>Limite de Credito: <span data-bind="text:limitecred"></span></strong></h2></p>
+			 <p><h2><strong>Dias de Credito: <span data-bind="text:diascred"></span></strong></h2></p>
+			 <p><h2><strong>Forma de Pago: <span data-bind="text:TotalCxCF"></span></strong></h2></p>
+			 <p><h2><strong>Saldo Pendiente: <span data-bind="text:TotalCxCF"></span></strong></h2></p>
+
+		  </li>
+		</ul>
+        
+		<ul data-role="listview" data-inset="true" data-theme="c" data-filter="false" data-bind="foreach: cxc">
+        	<li>
+				   <a href="#" data-bind="">
+				   <p><h2><span data-bind="text: tipodoc"></span>: <span data-bind="text: numerod"></span></h2></p>
+				   <p><strong>Descripcion: <span data-bind="text: document"></span></strong></p>
+              	   <p><strong>Monto:       <span data-bind="text: monto"></span></strong></p> 
+				   <p><strong>Saldo:       <span data-bind="text: saldo"></span></strong></p>
+				   <p><strong>Fecha E.:    <span data-bind="text: fechae"></span></strong></p>
+				   <p><strong>Fecha V.:    <span data-bind="text: fechav"></span></strong></p>
+              	   <p><strong>Dias:        <span data-bind="text: diasVenc"></span></strong></p>
+				   <a data-bind="{ click: $parent.DetallarCxC }"></a>
+				</a>				            
+
+			</li>
+		</ul>
+		                  
+	 </div>
+
+	 <div data-role="footer" data-theme="b" data-bind="visible: visiblefooter"  >
+	  <div data-role="navbar"  >
+		   <ul>
+               <div>
+                  <li data-bind="visible: visibleatras"><a name="buttonatras" id = "buttonatras" href="#" data-bind="{ click: clickatras }"  data-icon="arrow-l"  ></a></li>
+               </div>     
+
+               <div >
+                 <li data-bind="visible: visibleadelante"><a href="#" data-bind="{ click: clickadelante }" data-icon="arrow-r" ></a></li>
+               </div>     
+           </ul>
+        </div>     
+     </div>
+   </div>
+
+<!-- FIN PANTALLA INFO CxC -->
+
+<!-- PANTALLA ITEMS PAGOS -->
+
+<div data-role="page" id="itemspagos">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#menu" data-icon="back">Cancelar</a>  
+  	                  <h1>Elija Item</h1>
+              <a data-icon="check" href="#" data-bind="{ click: clickconfirmar }">Confirmar</a> 
+              
+              <div data-role="navbar">
+                      <ul>
+                			<li><a href="#infocxc"   >Detalle Pago</a></li>
+                			<li><a href="#"   class="ui-btn-active ui-state-persist">Items Pagos</a></li>
+           			  </ul>
+        	  </div>
+    	</div>
+
+     
+      <div data-role="content">
+        <div data-role="fieldcontain">
+          <ul data-role="listview" data-inset="true" data-theme="b" data-filter="false">          
+            <li data-role="list-divider" data-theme="b" style='text-align:center'>Items<p><strong class='ui-li-aside'>Total: <span data-bind="text:totalBrutoGeneral" ></span></strong></p></li>
+            <!-- ko foreach: documentospagos -->
+            <li data-theme="c">
+              <a href="#">
+              <p><h2><span data-bind=""></span></h2></p> 
+              <p><strong>Tipo     : <span data-bind="text:tipodoc"></span></strong></p> 
+              <p><strong>Numero   : <span data-bind="text:ndocumentop"></span></strong></p>
+              <p><strong>Monto    : <span data-bind="text:montop"></span></strong></p> 
+              <p><strong>Deducible : <span data-bind="text:deduc1p"></span></strong></p>               
+              <p><strong>Total: <span data-bind="text:totalp"></span></strong></p>
+              <a data-bind="{ click: $parent.RemoverItem }" data-icon="delete"></a> 
+              </a> 
+            </li>
+            <!-- /ko -->
+		  </ul> 
+		</div>
+      </div>
+   </div>
+
+<!-- FIN PANTALLA ITEMS PAGOS -->
+
+<!-- PANTALLA CANTIDAD CxC -->
+
+   <div data-role="page" id="cantidadcxc">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#infocxc" data-icon="back">Atras</a>  
+              <p><h2><span data-bind="text: tipodoc"></span>: <span data-bind="text: numerod"></span></h2></p>
+  	         
+             <a data-icon="check" href="#" data-bind="{ click: clickguardar }">Guardar</a>
+             
+             <div data-role="navbar">
+                <ul>
+                  <li><a href="#"   class="ui-btn-active ui-state-persist" >Monto Pago</a></li>
+				  <li><a href="#descuentocxc"  >Descuentos</a></li>
+                  <li><a href="#totalescxc"  >Totales</a></li>
+				</ul>
+             </div>
+        </div>
+
+     
+      <div data-role="content">
+            <div data-role="fieldcontain">
+                <p><h4><span>Saldo Pendiente:</span> <span data-bind="text: saldo"></span></h4>                
+                <h4><span>Dias Venc.:</span> <span data-bind="text: diasv"></span></h4>            
+                <h4>Monto a Cancelar: <input  id="montocancelar" name="cancelar" type="number" data-bind="value: cancel"/></h4></p>
+            </div>            
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-theme="b">              
+         <h2><span data-bind="text: desclie"></span></h2>
+      </div>
+      
+   </div>
+
+<!-- FIN PANTALLA CANTIDAD CxC -->
+
+
+<!-- PANTALLA DESCUENTO CxC -->
+
+<div data-role="page" id="descuentocxc">
+
+    <div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#infocxc" data-icon="back">Cancelar</a>  
+              <p><h2><span data-bind="text: tipodoc"></span>: <span data-bind="text: numerod"></span></h2></p>  	         
+             <a data-icon="check" href="#" data-bind="{ click: clickguardar }">Guardar</a>
+             
+        <div data-role="navbar">
+           <ul>
+                <li><a href="#cantidadcxc"   class="ui-btn-active ui-state-persist" >Pago</a></li>
+                <li><a href="#"  >Descuentos</a></li>
+                <li><a href="#totalescxc"  >Totales</a></li>
+           </ul>
+        </div>
+        </div>
+      <div data-role="content">
+              <div data-role="fieldcontain">                 
+				   <label for="descuento">Descuento(%)</label></br>
+				   <input id="descuento" name="descuento" type="number" data-bind="value: desccxc"/>
+              </div>              
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-theme="b">              
+         <h2><span data-bind="text: desclie"></span></h2>
+      </div>
+            
+</div>
+
+<!-- FIN PANTALLA DESCUENTO CxC -->
+
+
+
+<!-- PANTALLA TOTALES CXC -->
+
+<div data-role="page" id="totalescxc">
+
+    <div data-role="header" data-position="fixed" data-theme="b">              
+			  <a data-role="button" href="#infocxc" data-icon="back">Cancelar</a>
+                   <p><h2><span data-bind="text: tipodoc"></span>: <span data-bind="text: numerod"></span></h2></p>  	         
+              <a data-icon="check" href="#" data-bind="{ click: clickguardar }">Guardar</a>
+             
+        <div data-role="navbar">
+           <ul>
+				<li><a href="#cantidadcxc"   class="ui-btn-active ui-state-persist" >Pago</a></li>
+                <li><a href="#descuentocxc">Descuentos</a></li>
+                <li><a href="#"  >Totales</a></li>
+           </ul>
+        </div>
+        </div>
+
+      <div data-role="content">
+        <ul data-role="listview" id ="listaDiaria" data-inset="true" data-split-icon = "delete"> 
+                   
+         <li data-theme="b" >           
+            Monto:<span class='ui-li-aside' data-bind="text: cancel"> 0.00</span>          
+         </li>         
+         <li data-theme="b" >           
+            Descuento Aplicado:<span class='ui-li-aside' data-bind="text: totaldesccxc">0.00</span>          
+         </li>
+         <li data-theme="b" >           
+            Total:<span class='ui-li-aside' data-bind="text: subtotalcxc">0.00</span>          
+         </li>                                    
+      </ul>
+      </div>
+      <div data-role="footer" data-position="fixed" data-theme="b">              
+         <h2><span data-bind="text: desclie"></span></h2>
+      </div>
+</div>
+
+<!-- FIN PANTALLA TOTALES CXC -->
+
+<!-- PANTALLA LISTA DE DOCUMENTOS CXC -->
+
+<div data-role="page" id="CxC">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+            <a data-role="button" href="#menu" data-icon="back">Cancelar</a>  
+  	        <h1><span data-bind="text: cliente"></span></h1>
+            <a data-icon="check" data-bind="{ click: PagarCxC }">Pagar</a>            
+        </div>
+        
+      <div data-role="content">
+       
+        <ul data-role="listview" data-inset="true" data-theme="c" data-filter="false">
+          <li data-role="list-divider" data-theme="c" style='text-align:left'>
+			 <p><h2><strong>Total: <span data-bind="text:TotalCxCF"></span> </br>Cancelado: <span  data-bind="text:totalcancel"></span></strong></h2></p>
+          </li>
+		  <!-- ko foreach: documentos -->
+			<li data-theme="c">                
+                <fieldset data-role="controlgroup" data-type="horizontal">                  
+                  <legend>Pagar:</legend>
+                  <input type="checkbox" name="q1" value="agree" data-bind="checked: estatus" />                                                          
+                </fieldset>          
+              <a href="#">    
+              	<p><h2><span data-bind="text: tipodoc"></span>: <span data-bind="text: numerod"></span></h2></p> 
+              	<p><strong>Descripcion: <span data-bind="text: document"></span></strong></p> 
+              	<p><strong>Monto:       <span data-bind="text: monto"></span></strong></p> 
+              	<p><strong>Saldo:       <span data-bind="text: saldo"></span></strong></p> 
+              	<p><strong>Fecha E.:    <span data-bind="text: fechae"></span></strong></p> 
+              	<p><strong>Fecha V.:    <span data-bind="text: fechav"></span></strong></p> 
+              	<p><strong>Dias:        <span data-bind="text: diasVenc"></span></strong></p>
+              	<p><h2>Cancelar:        <input  id="cancelar" name="cancelar" type="number" data-bind="value: cancel"/></h2></p>                             
+                <a></a>              
+              </a> 
+            </li>
+		  <!-- /ko -->
+		</ul>                  
+     
+</div>
+
+  
+     <div data-role="footer" data-theme="b" data-bind="visible: visiblefooter"  >
+      <div data-role="navbar"  >
+           <ul>
+               <div>
+                  <li data-bind="visible: visibleatras"><a name="buttonatras" id = "buttonatras" href="#" data-bind="{ click: clickatras }"  data-icon="arrow-l"  ></a></li>
+               </div>     
+
+               <div >
+                 <li data-bind="visible: visibleadelante"><a href="#" data-bind="{ click: clickadelante }" data-icon="arrow-r" ></a></li>
+               </div>     
+           </ul>
+        </div>     
+     </div>
+        </div>
+
+<!-- FIN PANTALLA LISTA DE DOCUMENTOS CXC -->
+
+
+<!-- PANTALLA CONEXION -->
+
+
+   <div data-role="page" id="conexion">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+           <a data-role="button" data-rel="back" data-icon="back">Atras</a>   
+             <h1>Config. Conexion al Servidor</h1>  	         
+           <a data-icon="check" data-rel="back" data-bind="{ click: guardar }">Guardar</a>             
+        </div>
+      <div data-role="content">      
+           
+           <div data-role="fieldcontain">   
+              <label for="direccionip">Direccion IP:</label></br>
+              <input  id="direccionip" type="text" data-bind="value:IP"/>              
+           </div>   
+           
+           <div data-role="fieldcontain">   
+              <label for="puerto">Puerto:</label></br>
+              <input  id="puerto" type="number" data-bind="value:Puerto"/>
+           </div>
+
+
+           <input id="impresora" type="checkbox"  value="0" data-bind="value:TieneImpreso"> 
+			     <label for="impresora">Tiene Impresora Bluetooth</label>
+
+            <input id="verimagen" type="checkbox"  value="0" data-bind="value:verimagen"> 
+			      <label for="verimagen">Mostrar Imagenes</label></br>
+
+
+           <div data-bind="visible: verdepo">
+             <div data-role="fieldcontain">   
+                <label for="deposito">Deposito:</label></br>
+                <input  id="deposito" type="text" data-bind="value:coddepo"/>
+             </div>
+           </div>
+           
+           <div data-role="fieldcontain" >   
+              <a href="#" data-bind="{ click: probarconexion }" id="probarconexion" data-role="button" data-theme="b" data-mini="true">Probar Conexion</a>
+              <a href="#" data-bind="{ click: reiniciar }"id="btnReiniciar" data-role="button" data-theme="b"  data-mini="true">Borrar Datos de la Aplicacion</a>
+           
+           </div>           
+           
+         <!-- 
+             <div data-role="fieldcontain" >   
+                <label for="flip-mini">Trabajar con Conexión:</label>
+                <select data-bind="options: opciones, selectedOptions: opcion, value: opcion" data-role="slider" data-mini="true" name="flip-mini" id="flip-mini"></select>             
+             </div>
+          -->
+      </div>     
+   </div>
+
+<!-- FIN PANTALLA CONEXION -->
+
+
+<!-- PANTALLA RECIBIR -->
+
+<div data-role="page" id="recibir">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#menuconf" data-icon="back">Atras</a>  
+              <h2>Recibir Datos</h2>
+        </div>
+
+        <div data-role="content">
+        <div data-role="fieldcontain">
+        <ul data-role="listview" data-inset="true" data-theme="b" data-dividertheme="a">
+            <li data-role="list-divider" style="text-align:center">Datos</li>
+			<li><a  id="btnCxC" data-bind="click: clickOpcion.bind($data, 'CxC','')">Cuentas por Cobrar<span id="CountCxC" class="ui-li-count" data-bind="text: CountCxC"></span></a></li>
+            <li><a  id="btnProductos" data-bind="click: clickOpcion.bind($data, 'PRODUCTOS','')" >Productos<span id="CountProductos" class="ui-li-count" data-bind="text: CountProductos"></span></a></li>
+            <li><a  id="btnClientes" data-bind="click: clickOpcion.bind($data, 'CLIENTES',''),">Clientes<span id="CountClientes" class="ui-li-count" data-bind="text: CountClientes"></span></a></li>
+            <li><a  id="btnUsuarios" data-bind="click: clickOpcion.bind($data, 'USUARIOS','')">Usuarios</a></li>
+            <li data-role="list-divider" style="text-align:center">Otros</li>
+            <li><a  data-bind="click: clickOpcion.bind($data, 'PRECIOS')">Actualizar Precios<span id="CountPrecios" class="ui-li-count" data-bind="text: CountProductos"></span></a></li>
+   <!--             <li><a  data-bind="click: clickOpcion.bind($data,'IMAGEN')">Imagenes de Productos</a></li>  -->
+            <li><a  data-bind="click: ObtenerLista.bind($data, 'Lista')">Lista de Precios</a></li>
+            <li><a  data-bind="click: ObtenerAnaVenCli.bind($data, 'AnaVenCli')">Analisis de Vencimiento</a></li>
+            
+        </ul>             
+    <!--         <a href="#" data-bind="click: clickOpcion.bind($data, 'PRODUCTOS','')" id="btnProductos" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Productos</a>
+             <a href="#" data-bind="click: clickOpcion.bind($data, 'CLIENTES','')"  id="btnClientes" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Clientes</a>		      
+             <a href="#" data-bind="click: clickOpcion.bind($data, 'BANCOS','')"  id="btnBancos" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Bancos</a> 
+             <a href="#" data-bind="click: clickOpcion.bind($data, 'USUARIOS','')"  id="btnUsuarios" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Usuarios</a>
+     
+             <a href="#" data-bind="click: ObtenerLista.bind($data, 'Lista')"  id="btnConfig" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Lista de Precios</a>
+             <a href="#" data-bind="click: ObtenerAnaVenCli.bind($data, 'AnaVenCli','')"  id="btnAnaVenCli" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Analisis de Vencimiento</a> 
+             <a href="#" data-bind="click: clickTodos.bind($data, 'TODOS')"  id="btnTsodos" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Todos</a>
+      -->             		     
+ 	       </div> 	
+        </div>
+   </div>
+   
+<!-- FIN PANTALLA RECIBIR -->
+
+
+<!-- PANTALLA ENVIAR -->
+
+<div data-role="page" id="enviar">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#menuconf" data-icon="back">Atras</a>  
+              <h2>Enviar Datos</h2>
+        </div>
+
+        <div data-role="content">
+           <div data-role="fieldcontain">
+             <a href="#" data-bind="click: clickEnviar.bind($data, 'DOCUMENTOS')" id="btnEnvPed" data-role="button"  data-theme="b">Enviar Pedidos</a>
+<!--             <a href="#" data-bind="click: clickEnviar.bind($data, 'Pagos')" id="btnEnvPag" data-role="button"  data-theme="b">Enviar Pagos</a>
+             <a href="#" id="btnTsodos" data-role="button" data-icon="check" data-iconpos="right" data-theme="b">Todos</a> -->		     
+ 	       </div>
+        </div>
+   </div>
+
+
+<!-- FIN PANTALLA ENVIAR -->
+
+   
+<!-- PANTALLA MENU CONFIGURACION -->
+   
+   
+   <div data-role="page" id="menuconf">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#menu" data-icon="back">Atras</a>  
+              <h2>Menu Conexión</h2>
+        </div>
+
+        <div data-role="content">
+           <div data-role="fieldcontain">
+             <a href="#recibir"   id="btnRecDat" data-role="button" data-theme="b">Recibir Datos</a>
+             <a href="#enviar"    id="btnEnvDat" data-role="button" data-theme="b">Enviar Datos</a>             
+             <a href="#conexion"  id="btnEnvDat" data-role="button" data-theme="b">Config. Conex. al Servidor</a>
+ 	       </div>
+        </div>
+   </div>
+   
+<!-- FIN PANTALLA MENU CONFIGURACION -->
+
+
+
+
+
+<!-- --------------------------------------------------- PANTALLAS PARA PAGOS----------------------------------------------- -->
+
+
+<!-- PANTALLA FORMAS DE PAGO -->
+
+
+<div data-role="page" id="formapago">
+
+    <div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#confirmar" data-icon="back">Cancelar</a>  
+                	         <h2><span>Pagos</span></h2>             
+             <div data-role="navbar">
+                 <ul>
+                    <li><a href="#formapago">Formas de Pago</a></li>
+                    <li><a href="#items_formas_de_pago"   class="ui-btn-active ui-state-persist">Items</a></li>
+                 </ul>
+             </div>
+    </div>
+
+    <div data-role="content">      
+           
+           <div data-role="fieldcontain">           
+             <p><strong>Monto a Cancelar: <span data-bind="text: totalItemGeneral"></span></strong></p> 
+             <p><strong>Monto Pagado: <span data-bind="text: montocancelado"></span></strong></p> 
+             <p><strong>Monto Restante: <span data-bind="text: montoporcancelar"></span></strong></p> 
+           </div>
+           
+           
+           <div data-role="fieldcontain">
+             <a href="#"  id="btnefectivo" data-role="button" data-theme="b" data-bind="click: pagar.bind($data,'1')">Efectivo</a>             
+             <a href="#"  id="btncheque"   data-role="button" data-theme="b" data-bind="click: pagar.bind($data,'2')">Cheque</a>             		     
+             <a href="#"  id="btntransfe"  data-role="button" data-theme="b" data-bind="click: pagar.bind($data,'3')">Transferencia</a>
+             <a href="#"  id="btndeposito" data-role="button" data-theme="b" data-bind="click: pagar.bind($data,'4')">Depo. Bancario</a>
+ 	       </div>
+    
+      
+        
+        <div data-role="fieldcontain">           
+              <p><strong>Notas: </strong></p>
+              <input  id="obser" name="obser" type="text" data-bind="value: obsPedidos" />                            
+        </div>        
+      </div>
+      
+      <div data-role="footer" data-position="fixed" data-theme="b">              
+         <h2><span data-bind="text: desclie"></span></h2>
+      </div>
+</div>
+
+<!-- FIN PANTALLA FORMAS DE PAGO -->
+
+
+   
+   
+   
+<!-- PANTALLA CANTIDAD FORMA DE PAGOS -->
+
+
+   <div data-role="page" id="cantidad_forma_pagos">
+		<div data-role="header" data-position="fixed" data-theme="b">              
+              <a data-role="button" href="#formapago" data-icon="back">Atras</a>  
+              <h1><span data-bind=""></span></h1>  	         
+              <a data-icon="check" href="#" data-bind="{ click: clickguardar  }">Guardar</a>              
+        </div>
+        
+      <div data-role="content">      
+           
+           <div data-role="fieldcontain">                      
+             <p><strong>Monto a Cancelar: <span data-bind="text: totalItemGeneral"></span></strong></p> 
+             <p><strong>Monto Pagado: <span data-bind="text: montocancelado"></span></strong></p> 
+             <p><strong>Monto Restante: <span data-bind="text: montoporcancelar"></span></strong></p>            
+           </div> 
+             
+           <div data-role="fieldcontain" id="efectivo" data-bind="visible: divefectivo">
+              <p><strong>Efectivo...</strong></p>                         
+              <label for="montoefectivo">Monto:</label></br>
+              <input  id="montoefectivo" type="number" data-bind="value: monto"/>
+                            
+           </div> 
+           
+           <div id="cheque" data-bind="visible: divcheque">
+           
+              <p><strong>Cheque...</strong></p>
+           	  <div data-role="fieldcontain">           	     
+                 <label for="ncheque">N. Cheque</label></br>
+                 <input  id="ncheque" name="ncheque" type="text" data-bind="value:ncheque"/>
+              </div>
+           
+              <div data-role="fieldcontain">
+                 <label for="montocheque">Monto:</label></br>
+                 <input  id="montocheque" type="number" data-bind="value:monto"/>
+              </div>
+           
+              <div data-role="fieldcontain">
+                 <label for="banco">Banco:</label></br>
+                 <input  id="banco" name="banco" type="text" data-bind="value:banco"/>
+              </div>
+           
+              <div data-role="fieldcontain">   
+                 <label for="cedula">Cedula:</label></br>
+                 <input  id="cedula" name="cedula" type="text" data-bind="value:cedula"/>
+              </div>   
+           
+              <div data-role="fieldcontain">
+                 <label for="telefono">Telefono:</label></br>
+                 <input  id="telefono" name="telefono" type="text" data-bind="value:telefono"/>
+              </div>
+           
+              <div data-role="fieldcontain">   
+                 <label for="remitente">Remitente:</label></br>
+                 <input  id="remitente" name="remitente" type="text" data-bind="value:remitente"/>              
+              </div>
+            
+          </div>
+           
+          <div id="transferencia" data-bind="visible: divtransferencia">
+             
+             <p><strong>Transferencia...</strong></p>
+             
+             <div data-role="fieldcontain" >              
+                  <label for="bancos">Banco:</label></br>
+                  <input  id="bancos" name="banco" type="text" data-bind="value:bancos"/>
+             </div>
+              
+             <div data-role="fieldcontain" >
+                  <label for="montotrans">Monto:</label></br>
+                  <input  id="montotrans" type="number" data-bind="value: monto"/>
+             </div>
+              
+             <div data-role="fieldcontain" >
+                  <label for="recibo">Recibo:</label></br>
+                  <input  id="recibo" name="recibo" type="text" data-bind="value:nrecibo"/>
+             </div>
+                            
+          </div>
+          
+          <div id="depobancario" data-bind="visible: divdepobancario">
+           
+             <p><strong>Deposito Bancario...</strong></p>
+             
+             <div data-role="fieldcontain">
+                  <label for="montodeposito">Monto:</label></br>
+                  <input  id="montodeposito" type="number" data-bind="value: monto"/>
+             </div>
+             
+             <div data-role="fieldcontain">
+                  <label for="test" class="select">Bancos</label></br>                  
+                  <select data-bind="foreach: bancos, value: banco">
+                       <option data-bind="text: name, value: lastname"></option>
+                  </select>                  
+             </div> 
+             
+             <div data-role="fieldcontain">
+                  <label for="NDeposito">N. Deposito</label></br>
+                  <input  id="NDeposito" name="NDeposito" type="text" data-bind="value: ndeposito"/>
+             </div>
+              
+          </div>
+
+     </div>
+     
+     <div data-role="footer" data-position="fixed" data-theme="b">              
+         <h2><span data-bind="text: desclie"></span></h2>
+     </div>
+     
+   </div>
+   
+   
+   <!-- PANTALLA ITEMS CARGADOS DE FORMAS DE PAGOS-->
+
+<div data-role="page" id="items_formas_de_pago">
+		<div data-role="header" data-position="fixed" data-theme="b">
+              <a data-role="button" href="#confirmar" data-icon="back">Cancelar</a>  
+  	         <h1>Formas de Pago</h1>             
+             <a data-icon="check" href="#" data-bind="{click: guardartodo }">Guardar</a>
+        <div data-role="navbar">
+           <ul>
+                <li><a href="#formapago">Pagos</a></li>
+                <li><a href="#" class="ui-btn-active ui-state-persist">Items</a></li>
+           </ul>
+        </div>
+    </div>
+
+     
+      <div data-role="content">       
+       <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider" data-theme="c" style='text-align:center'>Items<p><strong class='ui-li-aside'>Total: <span  data-bind="text: montocancelado"></span></strong></p></li>
+            <!-- ko foreach: itemsformaspago -->
+            <li data-theme="c">
+              <a href="#">
+              <p><strong>Tipo     : <span data-bind="text: tipoFP"></span></strong></p> 
+              <p><strong>Monto    : <span data-bind="text: montoFP"></span></strong></p>              
+              <a data-bind="{ click: $parent.RemoverItem }" data-icon="delete"></a> 
+              </a> 
+            </li>
+            <!-- /ko -->
+        </ul>                         
+     </div>
+   </div>
+
+<!-- FIN PANTALLA ITEMS CARGADOS DE FORMAS DE PAGOS -->
+   
+  </body>
+</html>
+
