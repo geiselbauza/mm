@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.phonegap.example"
+
+<!-- versionCode is optional and Android only -->
+
+  <name>Market Mobile</name>
+
+  <description>
+      Sistema de pedidos Para CAUCHOS LA MUNDIAL, C.A.
+  </description>
+
+  <author href="https://desarrollosgg.com" email="geiselbauza@gmail.com.com">
+      Desarrollos GG
+  </author>
+
+</widget>
