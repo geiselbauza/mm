@@ -4,7 +4,7 @@
 		xmlns:android = "http://schemas.android.com/apk/res/android"
 		id        = "1"
 		versionCode="5"
-		version   = "1.0.0">
+		version   = "1.0.0"
 		<name>MarketMobile</name>
 		<description>Sistema de pedidos para CAUCHOS LA MUNDIAL, C.A.</description>
 		<author href="https://desarrollosgg.com" email="geiselbauza@gmail.com.com">Desarrollos GG</author>
