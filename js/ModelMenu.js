@@ -10,13 +10,12 @@
 			            $('#menu').live('pageinit',function()
                         {
 		             	    ko.applyBindings(self,document.getElementById('menu'));
-			            	ko.applyBindings(self,document.getElementById('menupedidos'));
-			            	ko.applyBindings(self,document.getElementById('menuvisitas'));			            	
+			            	ko.applyBindings(self,document.getElementById('menupedidos'));			            	
                         });
 			            
 			            $('#menu').live('pageshow',function()
 			        	{
-			            	$.mobile.ModelLogin.PA('MENU');		
+			            	$.mobile.ModelLogin.PA('MENU');	
 			        	   	$.mobile.ModelTotalizar.totalBrutoGeneral(0);			        	   	
 			    			$.mobile.ModelTotalizar.totalDescuentoGeneral(0);			
 			    			$.mobile.ModelTotalizar.totalNetoGeneral(0);
@@ -34,54 +33,30 @@
 
         	    	 if ((self.menuSelec() == '1') || (self.menuSelec() == '2') || (self.menuSelec() == '10')) 
                         $.mobile.changePage(data2);
-        	    	 
-        	    	 if ((self.menuSelec() == '3') || (self.menuSelec() == '5') || (self.menuSelec() == '9') || (self.menuSelec() == '12'))
+        	    	 if ((self.menuSelec() == '3') || (self.menuSelec() == '5') || (self.menuSelec() == '9'))
                          $.mobile.changePage(data2);
-        	    	 
         	    	 if (self.menuSelec() == '6')
         	    		 {
-        	    		   $.mobile.ModelListaDocumentos.criterio("1"); //pedidos sin enviar
-        	    		   $.mobile.changePage(data2); 
+        	    		   $.mobile.ModelListaDocumentos.criterio("1");
+        	    		   $.mobile.changePage(data2);
         	    		 }
         	    	 if (self.menuSelec() == '7')
 	        	    	 {
-	      	    		   $.mobile.ModelListaDocumentos.criterio("2"); // pedidos enviados
-	      	    		   $.mobile.changePage(data2); 
+	      	    		   $.mobile.ModelListaDocumentos.criterio("2");
+	      	    		   $.mobile.changePage(data2);
 	      	    		 }
         	    	 if (self.menuSelec() == '8')
 	        	    	 {
-	      	    		   $.mobile.ModelListaDocumentos.criterio("3"); //
-	      	    		   $.mobile.changePage(data2); 
+	      	    		   $.mobile.ModelListaDocumentos.criterio("3");
+	      	    		   $.mobile.changePage(data2);
 	      	    		 }
 	      	    	 if (self.menuSelec() == '11')
 	        	    	 {
 	      	    		   $.mobile.ModelListaDocumentos.criterio("4");
-	      	    		   $.mobile.changePage(data2);    //imprimir pedidos
+	      	    		   $.mobile.changePage(data2);
 	      	    		 }
-  					 if (self.menuSelec() == '13')
-	        	    	 {
-	      	    		   $.mobile.ModelListaDocumentos.criterio("5");  // nueva visita
-	      	    		   $.mobile.changePage(data2); 
-	      	    		 }
-					if (self.menuSelec() == '14')
-	        	    	 {
-	      	    		   $.mobile.ModelListaDocumentos.criterio("6");  //visita sin enviar 
-	      	    		   $.mobile.changePage(data2); 
-	      	    		 }
-	      	    	if (self.menuSelec() == '15')
-	        	    	 {
-	      	    		   $.mobile.ModelListaDocumentos.criterio("7");  //visita enviada
-	      	    		   $.mobile.changePage(data2); 
-	      	    		 }	  
-	      	    	if (self.menuSelec() == '16')
-	        	    	 {
-	      	    		   $.mobile.ModelListaDocumentos.criterio("8"); // Imprimir visita
-	      	    		   $.mobile.changePage(data2); 
-	      	    		 }
-
-
-
-        	    	 if (self.menuSelec() == '4')	
+        	    	 
+        	    	 if (self.menuSelec() == '4')
         	    		  navigator.app.exitApp();  
                	 }
     };   

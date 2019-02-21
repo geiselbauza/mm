@@ -56,13 +56,6 @@
 				                    tx.executeSql('DROP TABLE IF EXISTS PRODUCTOS');
 		  	                 		tx.executeSql('CREATE TABLE IF NOT EXISTS PRODUCTOS (codigo VARCHAR(15), descrip VARCHAR(50), precio1 NUMERIC(10,3), precio2 NUMERIC(10,3), precio3 NUMERIC(10,3), iva NUMERIC(10,3), existen NUMERIC(10,3), costact NUMERIC(10,3))');
 				                    
-						    		tx.executeSql('DROP TABLE IF EXISTS PRECIOS');
-		  	                 		tx.executeSql('CREATE TABLE IF NOT EXISTS PRECIOS (codigo VARCHAR(15), precio1 NUMERIC(10,3), precio2 NUMERIC(10,3), precio3 NUMERIC(10,3), Iva NUMERIC(10,3))');
-				                    
-						    		tx.executeSql('DROP TABLE IF EXISTS IMAGEN');
-		  	                 		tx.executeSql('CREATE TABLE IF NOT EXISTS IMAGEN (codigo VARCHAR(15), imagen text)');
-
-
 				                    tx.executeSql('DROP TABLE IF EXISTS CxC');
 		  	                 		tx.executeSql('CREATE TABLE IF NOT EXISTS CxC (codclie VARCHAR(15), document VARCHAR(40), tipodoc VARCHAR(40), numerod VARCHAR(40), fechae VARCHAR(40), fechav VARCHAR(40), monto NUMERIC(10,3), saldo NUMERIC(10,3))');
 
@@ -72,12 +65,12 @@
 		  	                        tx.executeSql('DROP TABLE IF EXISTS BANCOS');
 		  	                 		tx.executeSql('CREATE TABLE IF NOT EXISTS BANCOS (CodBanc VARCHAR(30), Descripcion VARCHAR(60))');
 		  	                 		
-		  	                 		tx.executeSql('DROP TABLE IF EXISTS DOCUMENTOS');
-		  	                 		tx.executeSql('CREATE TABLE IF NOT EXISTS DOCUMENTOS (tipodoc VARCHAR(1), numerod VARCHAR(50), fechae VARCHAR(50), linea INTEGER, coditem VARCHAR(15), descrip VARCHAR(150), status INTEGER, cantidad NUMERIC(10,3), codvend VARCHAR(15), codclie VARCHAR(15), precio NUMERIC(10,3), descuento NUMERIC(10,3), totalitem NUMERIC(10,3), estaproc INTEGER, observacion VARCHAR(500),codubic VARCHAR(10),detalleprd VARCHAR(360),descuentog NUMERIC(10,3),esCC INTEGER)');
+		  	                 		//tx.executeSql('DROP TABLE IF EXISTS DOCUMENTOS');
+		  	                 		tx.executeSql('CREATE TABLE IF NOT EXISTS DOCUMENTOS (tipodoc VARCHAR(1), numerod VARCHAR(50), fechae VARCHAR(50), linea INTEGER, coditem VARCHAR(15), descrip VARCHAR(150), status INTEGER, cantidad NUMERIC(10,3), codvend VARCHAR(15), codclie VARCHAR(15), precio NUMERIC(10,3), descuento NUMERIC(10,3), totalitem NUMERIC(10,3), estaproc INTEGER, observacion VARCHAR(500),codubic VARCHAR(10),detalleprd VARCHAR(360),descuentog NUMERIC(10,3))');
 
 		  	                 	    tx.executeSql('DROP TABLE IF EXISTS DATOSP');
-		  	                 		tx.executeSql('CREATE TABLE DATOSP (direccion VARCHAR(70), puerto INTEGER, tipocarga INTEGER, tipocon INTEGER,vendernegativo VARCHAR(2),coddepo VARCHAR(10), tieneimpreso INTEGER, verimagen INTEGER)');
-		  	                 	    tx.executeSql('INSERT INTO DATOSP (direccion,puerto,tipocarga,tipocon,vendernegativo,coddepo,tieneimpreso, verimagen) VALUES ("localhost","8085",1,0,"no","",0,0)');
+		  	                 		tx.executeSql('CREATE TABLE DATOSP (direccion VARCHAR(70), puerto INTEGER, tipocarga INTEGER, tipocon INTEGER,vendernegativo VARCHAR(2),coddepo VARCHAR(10), tieneimpreso INTEGER)');
+		  	                 	    tx.executeSql('INSERT INTO DATOSP (direccion,puerto,tipocarga,tipocon,vendernegativo,coddepo,tieneimpreso) VALUES ("localhost","8085",1,0,"no","",0)');
 				                  }
 				              );		  	                 
 				           }

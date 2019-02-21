@@ -17,9 +17,9 @@
 			});			
 		</script>
 	    
-	    <script src="js/cordova-2.7.0.js"></script>	     
-	    <script src="js/cordova_plugins.js"></script>      
-      	    <script src="js/jquery.mobile-1.2.0.min.js"></script>
+	    <script src="cordova.js"></script>	     
+	    <script src="cordova_plugins.js"></script>      
+      <script src="js/jquery.mobile-1.2.0.min.js"></script>
 	    <script src="js/knockout-2.1.0.js"></script>
 	    <script src="js/SqLite.js"></script>        	    
 
@@ -32,17 +32,13 @@
 	    <script src="js/ModelProducto.js" type="text/javascript"></script>	    
 	    <script src="js/ModelInfoCxC.js" type="text/javascript"></script>
 	    <script src="js/ModelCxC.js" type="text/javascript"></script>
-	    <script src="js/ModelPageModal.js" type="text/javascript"></script>
+	    
 	    <script type="text/javascript" src="js/base64.js"></script>
-      <script type="text/javascript" src="js/json2.js"></script>
-
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkJ-Ev2U5LjWc2tshPxidMAEnAuuw44y0&callback=initMap"></script>
-
-    <!--  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v3"> </script>
-
+        <script type="text/javascript" src="js/json2.js"></script>
 	    
 	    
-      <script src="js/ModelPagos.js" type="text/javascript"></script>
+	    <!--  
+	    <script src="js/ModelPagos.js" type="text/javascript"></script>
 	    -->	    	    
 	    <script src="js/ModelMenu.js" type="text/javascript"></script>
 
@@ -90,9 +86,11 @@
         	 navigator.app.overrideBackbutton(false);
         	 alert('No');
           }  
-	</script>	
+	</script>	    
   </head>  
   <body>
+  
+
  
 
 
@@ -143,7 +141,7 @@
  	      	    <p><strong> manejo de cuentas por cobrar</strong></p> 	   
  	      <img src="img/LogoMM2.png">-->                   
  	      
- 	      <img src="img/Logo-CLM.png">
+ 	      <img src="img/LogoMM2.png">
            	       	      
 		 </div>
  	 </div>
@@ -219,53 +217,15 @@
 
 
 	  
-	<div data-role="footer" data-position="fixed" data-theme="c"  >
-	  <!-- GEOLOCALIZAR -->
-    <div  align="center"   data-bind="visible:visiblecoord">
-		  <a href="#" data-bind="{ click: clickpuntear }" id="puntear" data-role="button" data-theme="b">Geolocalizar</a>
-
-<!--         <ul data-role="listview" id ="geolocalizacion" data-inset="true">
-          <li>
-            <p>Latitud<span  class='ui-li-aside' data-bind="text: latitud"> </span></p>
-            <p>Longitud<span class='ui-li-aside' data-bind="text: longitud"></span></p>
-          </li>
-        </ul> -->
+	<div data-role="footer" data-position="fixed" data-theme="c">
+	  <div  align="center">
+		  <a href="#" data-bind="{ click: clickpuntear }" id="puntear" data-role="button" data-theme="b">Puntear</a>
+	  </div>
 	</div>
-
-  </div>
-<!-- MOSTRAR UBICACION-->
-    <div  align="center"  data-bind="visible:visibleboton" >
-      <a href="#" data-bind="{ click: dibujar }" id="mapp"  data-role="button" data-theme="b">Mostrar Ubicacion</a>
-    </div> 
-      <div  data-bind="visible:visiblemapa"  id = "mapa"  style="width: 150xp; height: 180px ">
-      </div>
 
 </div>
 
-<!-- <script type="text/javascript">
-  var divMapa = document.getElementById('mapa');
-  navigator.geolocation.getCurrentPosition(fn_ok,fn_mal);
-  function fn_mal() {}
-  function fn_ok(rta) {
-      var latitud = rta.coords.latitude;
-      var longitud = rta.coords.longitude;
 
-
-      var gLatLon = new google.maps.LatLng(latitud,longitud);
-
-      var objConfig = {
-          zoom: 17,
-          center: gLatLon
-      }
-
-      var gMapa = new google.maps.Map(divMapa,objConfig);
-      var objConfigMarker = {
-        position:gLatLon,
-        map:gMapa
-      }
-      var gMarker = new google.maps.Marker(objConfigMarker);
-  }
-</script> -->
 <!-- FIN PANTALLA DETALLE CLIENTES -->
 
 
@@ -284,7 +244,6 @@
 	  <li data-role="list-divider" style="text-align:center">Menu Principal</li>
 	  <li><a data-bind="click: clickMenu.bind($data, '10', '#infoclientes')">Clientes</a></li>
 	  <li><a data-bind="click: clickMenu.bind($data, '9', '#infoproductosmain')">Productos</a></li>
-    <li><a data-bind="click: clickMenu.bind($data, '12', '#menuvisitas')">Visitas</a></li>
 	  <li><a data-bind="click: clickMenu.bind($data, '5', '#menupedidos')">Pedidos</a></li>
 	  <li><a data-bind="click: clickMenu.bind($data, '2', '#infoclientes')">Cuentas por Cobrar.</a></li>
 	  <li><a data-bind="click: clickMenu.bind($data, '3', '#menuconf')">Sincronizacion</a></li>
@@ -303,12 +262,14 @@
 
 <!-- FIN PANTALLA MENU -->
 
+
+
 <!-- PANTALLA MENU PEDIDOS-->
 
  <div data-role="page" id="menupedidos">
 <div data-role="header" data-position="fixed" data-theme="b">
         <a data-role="button"  data-icon="back" href="#menu">Menu</a>             
-        <h1>Menu Pedidos</h1>             
+        <h1></h1>             
 </div>
 
 <div data-role="content">
@@ -325,29 +286,6 @@
 </div>
 
 <!-- FIN PANTALLA MENU PEDIDOS-->
-
-<!-- PANTALLA MENU VISITAS-->
-
- <div data-role="page" id="menuvisitas">
-<div data-role="header" data-position="fixed" data-theme="b">
-        <a data-role="button"  data-icon="back" href="#menu">Menu</a>             
-        <h1>Menu Visitas</h1>             
-</div>
-
-<div data-role="content">
-
-  <ul data-role="listview" data-inset="true" data-theme="b" data-dividertheme="a">
-      <li data-role="list-divider" style="text-align:center">Menu Visitas</li>
-      <li><a data-bind="click: clickMenu.bind($data, '10', '#infoclientes')">Nueva Visita.</a></li>               
-      <li><a data-bind="click: clickMenu.bind($data, '14', '#listadocumentos')">Visita Sin Enviar.</a></li>         
-      <li><a data-bind="click: clickMenu.bind($data, '15', '#listadocumentos')">Visita Enviadas.</a></li>
-      <li><a data-bind="click: clickMenu.bind($data, '16', '#listadocumentos')">Imprimir Visitas.</a></li>
-    <!--  <li><a data-bind="click: clickMenu.bind($data, '8', '#listadocumentos')">Pedidos con Problemas.</a></li> -->                     
-  </ul>    
- </div>
-</div>
-
-<!-- FIN PANTALLA MENU VISITAS-->
 
 
 
@@ -449,7 +387,7 @@
 				<a href="#" data-bind="{ click: $parent.AsignarProducto }">
 				   <p><strong>Descrip   : <span data-bind="text: descrip"></span></strong></p>
 				   <p><strong>Existencia: <span data-bind="text: existen"></span></strong></p>
-           <div data-bind="visible: viscosto"> <p><strong>Costo: <span data-bind="text: costact"></span></strong></p> </div>
+                   <div data-bind="visible: viscosto"> <p><strong>Costo: <span data-bind="text: costact"></span></strong></p> </div>
 				   <a data-bind="{ click: $parent.AsignarProducto }"></a>
 				</a>
 			</li>
@@ -505,21 +443,16 @@
 
 	  <div data-role="content">
 	   <input type="search" data-bind="value: productotofind, valueUpdate: 'afterkeydown', event: { keypress: keyOnEnter }" />
-		
-			<ul data-role="listview" data-inset="true" data-filter="false" data-bind="foreach: productos">
-							
-			  	<li class="galeria_item" >
-			  	<a class="" data-bind="{ click: $parent.AsignarProducto }">
-			  	    <!-- img class="galeria__img" hspace="0" vspace="0" width="100" height="100" top="0" src="../www/img/N-870-L.jpg"> -->
-						  <p><strong><span data-bind="text: descrip"></span></strong></p>
-					    <p><strong>Existencia : <span data-bind="text: existen"></span></strong></p>
-			   			<div data-bind="visible: viscosto"><p><strong>Costo: <span data-bind="text: costact"></span></strong></p></div>
-              <a class="" data-bind="{ click: $parent.AsignarProducto }"></a>
-          </a>
-			   	
-				</li>
-
-			</ul>
+		<ul data-role="listview" data-inset="true" data-theme="c" data-filter="false" data-bind="foreach: productos">
+			<li>
+				<a href="#" data-bind="{ click: $parent.AsignarProducto }">
+				   <p><strong>Descrip   : <span data-bind="text: descrip"></span></strong></p>
+				   <p><strong>Existencia: <span data-bind="text: existen"></span></strong></p>
+                   <div data-bind="visible: viscosto"> <p><strong>Costo: <span data-bind="text: costact"></span></strong></p> </div>
+				   <a data-bind="{ click: $parent.AsignarProducto }"></a>
+				</a>
+			</li>
+		</ul>
 	 </div>
 
 	 <div data-role="footer" data-theme="b" data-bind="visible: visiblefooter"  >
@@ -785,7 +718,7 @@
         </div>
 	  <div data-role="content">
               <div data-role="fieldcontain">                 
-                   <label for="descuento">Descuento (%)</label></br>
+                   <label for="descuento">Descuento(%)</label></br>
                    <input id="descuento" name="descuento" type="number" data-bind="value:DescPorc"/>
               </div>              
       </div>
@@ -858,75 +791,69 @@
 
 <div data-role="page" id="confirmar">
 
-  	<div data-role="header" data-position="fixed" data-theme="b">
-  			 <a data-icon="back"  href="#" data-bind="{ click: clickatras }">Cancelar</a>
-  				  <h2><span>Totalizar</span></h2>
-  			 <a data-icon="check" href="#" data-bind="{ click: clickconfirmar }">Confirmar</a>
+	<div data-role="header" data-position="fixed" data-theme="b">
+			 <a data-icon="back"  href="#" data-bind="{ click: clickatras }">Cancelar</a>
+				  <h2><span>Totalizar</span></h2>
+			 <a data-icon="check" href="#" data-bind="{ click: clickconfirmar }">Confirmar</a>
 
-  	</div>
+	</div>
 
+			  <div data-role="content" >
+				   <span><label for="totalDescuentoGlobalP">Descuento(%)</label></span>
+				   <input id="totalDescuentoGlobalP" name="totalDescuentoGlobalP" type="number" min="0" max="100" step="0.1" data-bind="value:totalDescuentoGlobalP, valueUpdate: 'afterkeydown', event: { keypress: keyOnEnterDesc }" />
 
-    <div data-role="content" >
-       <span><label for="totalDescuentoGlobalP">Descuento(%)</label></span>
-      <fieldset class="ui-grid-a">
-          <div class="ui-block-a">
-                  <input id="totalDescuentoGlobalP" name="totalDescuentoGlobalP" type="number" min="0" max="100" step="0.1" data-inline="true" style="width:150px; height:40px"  data-bind="value:totalDescuentoGlobalP" vertical-align:"middle" />
-          </div>
-          <div class="ui-block-b">
-                  <a data-theme="b" data-role="button" data-icon="grid" href="#" class="center-button" data-inline="true" data-bind="{ click: keyOnEnterDesc }">Calcular</a>
-          </div>
-      </fieldset>
-    		<ul data-role="listview" id ="totales" data-inset="true" data-split-icon = "delete">
-            <li data-theme="b" >           
-    			     Total-Bruto<span class='ui-li-aside' data-bind="text:totalBrutoGeneral">0.00</span>
-    		    </li>
-        		<li data-theme="b" >
-        			 Descuento items<span class='ui-li-aside' data-bind="text:totalDescuentoGeneral">0.00</span>
-        		</li>
-    		    <li data-theme="b" >
-    			     Descuento global<span class='ui-li-aside' data-bind="text:totalDescuentoGlobal">0.00</span>
-    		    </li> 
-    		    <li data-theme="b" >           
-               Total-Neto<span class='ui-li-aside' data-bind="text:totalNetoGeneral">0.00</span>          
-            </li>          
-            <li data-theme="b" >           
-    			     Base Imponible<span class='ui-li-aside' data-bind="text:totalImponibleGeneral">0.00</span>
-            </li>
-            <li data-theme="b" >           
-                Total Exento<span class='ui-li-aside' data-bind="text:totalExcentoGeneral">0.00</span>          
-            </li>
-            <li data-theme="b" >           
-                Impuesto<span class='ui-li-aside' data-bind="text:totalIVAGeneral">0.00</span>          
-            </li>           
-            <li data-theme="b" >           
-                Total <span class='ui-li-aside' data-bind="text:totalItemGeneral">0.00</span>          
-            </li>                  
-    		</ul>      
-
-<form name="esCCForm"> 		
-		<!-- <span data-bind="text: esCC"></span> -->
-        <input id="esCC" name="esCC" type="checkbox"  data-bind="checked:esCC" >
-        <label for="esCC"> Es cuenta clave </label>
-</form>    
-
-        Credito Disponible:<span data-bind="text: credis"></span><br>
+			  </div>
 
 
+	  <div data-role="content" >
+		<ul data-role="listview" id ="totales" data-inset="true" data-split-icon = "delete">
 
-        <label for="observacion">Observacion:</label>
-        <textarea id="obsPedidos" name="obsPedidos" data-bind="value:obsPedidos,valueUpdate:'afterkeyup'"> </textarea>
-
-    </div>
+         <li data-theme="b" >           
+			Total-Bruto<span class='ui-li-aside' data-bind="text:totalBrutoGeneral">0.00</span>
+		 </li>
+		 <li data-theme="b" >
+			Descuento items<span class='ui-li-aside' data-bind="text:totalDescuentoGeneral">0.00</span>
+		 </li>
+		 <li data-theme="b" >
+			Descuento global<span class='ui-li-aside' data-bind="text:totalDescuentoGlobal">0.00</span>
+		 </li> 
+		 <li data-theme="b" >           
+            Total-Neto<span class='ui-li-aside' data-bind="text:totalNetoGeneral">0.00</span>          
+         </li>          
+         <li data-theme="b" >           
+			Base Imponible<span class='ui-li-aside' data-bind="text:totalImponibleGeneral">0.00</span>
+         </li>
+         <li data-theme="b" >           
+            Total Exento<span class='ui-li-aside' data-bind="text:totalExcentoGeneral">0.00</span>          
+         </li>
+         <li data-theme="b" >           
+            Impuesto<span class='ui-li-aside' data-bind="text:totalIVAGeneral">0.00</span>          
+         </li>           
+         <li data-theme="b" >           
+            Total <span class='ui-li-aside' data-bind="text:totalItemGeneral">0.00</span>          
+         </li>                  
+		</ul>
       
-       
-
+        <div data-role="fieldcontain">
+                                
+                <h4><span>Credito Disponible:</span> <span data-bind="text: credis"></span></h4>
+				<label for="observacion">Observacion:</label>
+				<textarea id="obsPedidos" name="obsPedidos" data-bind="value:obsPedidos,valueUpdate:'afterkeyup'"> </textarea>
+              
+		</div>
+      </div>
+      
 	  <div data-role="footer" data-position="fixed" data-theme="b">
+
 			<div data-role="navbar">
 			   <ul>
-					 <li><a href="#" data-bind="{ click: CargaCliente }" class="ui-btn-active ui-state-persist" ><span data-bind="text: desclie"></span></a></li>
+					<li><a href="#" data-bind="{ click: CargaCliente }" class="ui-btn-active ui-state-persist" ><span data-bind="text: desclie"></span></a></li>
+
 			   </ul>
 			</div>
-    </div>
+
+	
+	  </div>
 </div>
 
 
@@ -1409,13 +1336,9 @@
            </div>
 
 
-           <input id="impresora" type="checkbox"  value="0" data-bind="value:TieneImpreso"> 
-			     <label for="impresora">Tiene Impresora Bluetooth</label>
-
-            <input id="verimagen" type="checkbox"  value="0" data-bind="value:verimagen"> 
-			      <label for="verimagen">Mostrar Imagenes</label></br>
-
-
+            <input id="impresora" type="checkbox"  value="0" data-bind="value:TieneImpreso"> 
+			<label for="impresora">Tiene Impresora Bluetooth</label></br>
+         
            <div data-bind="visible: verdepo">
              <div data-role="fieldcontain">   
                 <label for="deposito">Deposito:</label></br>
@@ -1458,8 +1381,6 @@
             <li><a  id="btnClientes" data-bind="click: clickOpcion.bind($data, 'CLIENTES',''),">Clientes<span id="CountClientes" class="ui-li-count" data-bind="text: CountClientes"></span></a></li>
             <li><a  id="btnUsuarios" data-bind="click: clickOpcion.bind($data, 'USUARIOS','')">Usuarios</a></li>
             <li data-role="list-divider" style="text-align:center">Otros</li>
-            <li><a  data-bind="click: clickOpcion.bind($data, 'PRECIOS')">Actualizar Precios<span id="CountPrecios" class="ui-li-count" data-bind="text: CountProductos"></span></a></li>
-   <!--             <li><a  data-bind="click: clickOpcion.bind($data,'IMAGEN')">Imagenes de Productos</a></li>  -->
             <li><a  data-bind="click: ObtenerLista.bind($data, 'Lista')">Lista de Precios</a></li>
             <li><a  data-bind="click: ObtenerAnaVenCli.bind($data, 'AnaVenCli')">Analisis de Vencimiento</a></li>
             
@@ -1644,8 +1565,8 @@
              <p><strong>Transferencia...</strong></p>
              
              <div data-role="fieldcontain" >              
-                  <label for="bancos">Banco:</label></br>
-                  <input  id="bancos" name="banco" type="text" data-bind="value:bancos"/>
+                  <label for="banco">Banco:</label></br>
+                  <input  id="banco" name="banco" type="text" data-bind="value:banco"/>
              </div>
               
              <div data-role="fieldcontain" >

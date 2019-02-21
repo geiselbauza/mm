@@ -128,7 +128,7 @@
 			
 			    }
 
-	       this.costact = ko.observable("BsS. " + costact.toLocaleString('de-DE'));
+	       this.costact = ko.observable(costact);
 	       if (($.mobile.ModelLogin.nivel() == '01') || ($.mobile.ModelLogin.nivel() == '02'))
 	           this.viscosto = ko.observable(true);
 	       else
@@ -145,31 +145,31 @@
 				       self.unidad("");
 				       self.existen(this.existen());	              
 				       self.costact(this.costact());
-				       self.p1(this.precio1());
-				       self.p2(this.precio2());
-				       self.p3(this.precio3());
+				       self.p1(this.precio1());self.p2(this.precio2());self.p3(this.precio3());
 				       self.ivaproducto(this.iva());
 				        ///////
 				        calculo = ko.observable();
-	var c = self.p1()+(self.p1()*self.ivaproducto()/100);
-			 calculo(c);
-			 self.p1i("BsS. "+calculo().toLocaleString('de-DE', { style: 'decimal',minimumFractionDigits : 2 }));
+			 			var c = self.p1()+(self.p1()*self.ivaproducto()/100);
+			 			calculo(c);
+			 			self.p1i(calculo().toFixed(2));
 			 			///////
-	c = self.p2()+(self.p2()*self.ivaproducto()/100);
-			 calculo(c);
-			 self.p2i("BsS. "+calculo().toLocaleString('de-DE', { style: 'decimal',minimumFractionDigits : 2 }));
+			 			c = self.p2()+(self.p2()*self.ivaproducto()/100);
+			 			calculo(c);
+			 			self.p2i(calculo().toFixed(2));
 			 		    ///////
-	c = self.p3()+(self.p3()*self.ivaproducto()/100);
-			 calculo(c);
-			 self.p3i("BsS. "+calculo().toLocaleString('de-DE', { style: 'decimal',minimumFractionDigits : 2 }));
-			 		
-			 	      self.cfob("");
+			 			c = self.p3()+(self.p3()*self.ivaproducto()/100);
+			 			calculo(c);
+			 			self.p3i(calculo().toFixed(2));
+			 			
+			 			
+			 			
+			 			
+			 			
+			 		   self.cfob("");
 				       self.factor("");
 				       
 				       
-				       	self.visp1(false);
-					self.visp2(false);
-					self.visp3(false);
+				       self.visp1(false);self.visp2(false);self.visp3(false);
 
 			           if (($.mobile.ModelLogin.preciovend1()==-1) &&
 							($.mobile.ModelLogin.preciovend2()==-1) &&
