@@ -27,8 +27,7 @@
  				self.CountCxC(rs.rows.item(0).CxC);
  				self.CountProductos(rs.rows.item(0).PRODUCTOS);
 				self.CountImagen(rs.rows.item(0).IMAGEN);
-				
- 				}, function(tx, err) {
+				}, function(tx, err) {
  					$.mobile.SqLite.error(tx, err)
  				});
  			});			
@@ -206,7 +205,6 @@
 
 							if(enviar == 1) {
 								self.EnviarDocumento(numdact);	
-													
 							} // Fin If Enviar
 						} //Fin For
 					} // Fin If

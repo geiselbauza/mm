@@ -30,9 +30,7 @@
 		p1v: ko.observable(true),
 		p2v: ko.observable(true),
 		p3v: ko.observable(true),
-		esCC:ko.observable(true),
-
-		
+		esCC:ko.observable(true),		
 		init : function() {
 			$('#IngresoManual').live(
 					'pageinit',
@@ -249,7 +247,7 @@
 				calculo = ko.observable();
 				var c = self.cantidad() * self.precio();
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Aplicando Descuento Parcial y General al Producto.
@@ -264,7 +262,7 @@
 
                        	d = d + c ;
 						calculo(d);
-						return calculo();
+						return calculo().toFixed(2);
 					}, this);
 
 			// Total Neto Parcial.
@@ -273,7 +271,7 @@
 				var c = (parseFloat(self.totalBrutoParcial()) - parseFloat(self
 						.descuentoParcial()));
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Base Imponible Parcial.
@@ -285,7 +283,7 @@
 				else
 					c = parseFloat((self.cantidad() * self.precio())-self.descuentoParcial());
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Excento Parcial.
@@ -297,7 +295,7 @@
 				else
 					c = 0;
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Iva Parcial.
@@ -306,7 +304,7 @@
 				var c = parseFloat(self.baseImponibleParcial())
 						* (self.iva() / 100);
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 
 			// Total Parcial.
@@ -314,7 +312,7 @@
 				calculo = ko.observable();
 				var c = parseFloat(self.baseImponibleParcial()+self.excentoParcial()+self.ivaParcial());
 				calculo(c);
-				return calculo();
+				return calculo().toFixed(2);
 			}, this);
 		},
 
@@ -330,7 +328,7 @@
 					total = total + parseFloat(w.totalBrutoParcial());
 				});
 				OSTotal(total);
-				return  OSTotal();
+				return  OSTotal().toFixed(2);
 			}, this);
 
 			// TotalDescuentoGeneral individual + descuento del cliente
@@ -341,7 +339,7 @@
 					total = total + parseFloat(w.descuentoParcial());
 				});
 				OSTotal(total);
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// Total Neto General
@@ -352,7 +350,7 @@
 					total = total + parseFloat(w.totalNetoParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalImponiblegeneral
@@ -363,7 +361,7 @@
 					total = total + parseFloat(w.baseImponibleParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalExcentogeneral
@@ -374,7 +372,7 @@
 					total = total + parseFloat(w.excentoParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalIVAGeneral
@@ -385,7 +383,7 @@
 					total = total + parseFloat(w.ivaParcial());
 				});
 				OSTotal(total-(total*self.descuentog()));
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
 
 			// TotalItemGeneral
@@ -401,7 +399,7 @@
 				 */
 
 				OSTotal(total);
-				return OSTotal();
+				return OSTotal().toFixed(2);
 			}, this);
             self.descuentog($.mobile.ModelTotalizar.totalDescuentoGlobal()/(self.totalBrutoGeneral()-self.totalDescuentoGeneral()));
 			$.mobile.ModelTotalizar.totalBrutoGeneral(self.totalBrutoGeneral());

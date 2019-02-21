@@ -1,4 +1,4 @@
-(function($) {
+﻿(function($) {
     var self =  $.mobile.ModelCliente = {
 
 
@@ -47,16 +47,19 @@
                self.visibleadelante(false);
                self.visiblefooter(false);
              },
-
+	  formatCurrency: function(value) {
+		alert(value)
+		return "BsS" + value.toFixed(2);
+},
           InsertarCliente: function (codigo, descrip, tipopvp, descto, saldo, diascred, limitecred, represent)
            {
              this.codigo = ko.observable(codigo);
              this.descrip = ko.observable(descrip);
              this.tipopvp = ko.observable(tipopvp);
              this.descto = ko.observable(descto);
-             this.saldo = ko.observable(saldo);
+             this.saldo = ko.observable(" BsS. " + saldo.toLocaleString('de-DE'));
              this.diascred = ko.observable(diascred);
-             this.limitecred = ko.observable(limitecred);
+             this.limitecred = ko.observable(" BsS. " + limitecred.toLocaleString('de-DE'));
              this.represent = ko.observable(represent);
            },
 
