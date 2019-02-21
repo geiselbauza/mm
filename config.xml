@@ -1,4 +1,4 @@
-		<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 	<widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
 		xmlns:android = "http://schemas.android.com/apk/res/android"
@@ -50,11 +50,8 @@
 		<preference name="DisallowOverscroll" value="true" />
 		<preference name="LoadingDialog" value="," />
 		<preference name="LoadUrlTimeoutValue" value="null" />
-		<platform name="ios">
-		</platform>
 		<platform name="android">
 		</platform>
-		<platform name="winphone">
-		</platform>
+
 		 <icon src="icon.png" />
 		</widget>
