@@ -3,7 +3,9 @@
 	var self = $.mobile.ModelConfiguracion = {
 		CountCxC: ko.observable(""),
 		CountProductos: ko.observable(""),
-		CountClientes: ko.observable(""),			
+		CountClientes: ko.observable(""),
+		CountPrecios:ko.observable(""),	
+		CountImagen:ko.observable(""),		
 		init: function() {
 
 			$('#recibir').live('pageinit', function() {
@@ -24,7 +26,8 @@
  				self.CountClientes(rs.rows.item(0).CLIENTES);				
  				self.CountCxC(rs.rows.item(0).CxC);
  				self.CountProductos(rs.rows.item(0).PRODUCTOS);
- 				}, function(tx, err) {
+				self.CountImagen(rs.rows.item(0).IMAGEN);
+				}, function(tx, err) {
  					$.mobile.SqLite.error(tx, err)
  				});
  			});			
@@ -36,6 +39,8 @@
 			if(tabla == 'TODOS') {				
 				self.clickOpcion('CxC','');
 				self.clickOpcion('PRODUCTOS','');				 
+				self.clickOpcion('PRECIOS','');
+				self.clickopcion('IMAGEN','');
 				self.clickOpcion('USUARIOS','');
 				self.clickOpcion('Clientes','');
 				self.clickOpcion('BANCOS','');
@@ -63,11 +68,30 @@
 				  			    }
 				  			    
 								if(tabla == 'PRODUCTOS') {
-									//console.log(item.CodProd+','+item.Descrip+','+item.Precio1+','+item.Precio2+','+item.Precio3+','+item.iva+','+item.existen);
+									console.log(item.CodProd+','+item.Descrip+','+item.Precio1+','+item.Precio2+','+item.Precio3+','+item.iva+','+item.existen);
 									sql = "INSERT INTO PRODUCTOS (codigo, descrip, precio1, precio2, precio3, iva, existen, costact) VALUES (?,?,?,?,?,?,?,?)";
 									tx.executeSql(sql, [item.CodProd, item.Descrip, item.Precio1, item.Precio2, item.Precio3, item.iva, item.existen, item.costact]);
 									self.CountProductos(N);
 								}
+
+								if(tabla == 'PRECIOS') {
+									console.log(item.CodProd);
+									sql = "UPDATE PRODUCTOS SET precio1= ?,precio2= ?,precio3= ?,Iva=? where codigo = ?";
+									tx.executeSql(sql, [item.Precio1, item.Precio2, item.Precio3, item.Iva,item.CodProd]);
+									//sql = "INSERT INTO PRECIOS (codigo,  precio1, precio2, precio3, Iva) VALUES (?,?,?,?,?)";
+									//tx.executeSql(sql, [item.CodProd,  item.Precio1, item.Precio2, item.Precio3, item.Iva]);
+									self.CountPrecios(N);
+								}
+								if(tabla == 'IMAGEN') {
+									console.log(item.CodProd+', '+item.Imagen64);
+									sql = "insert into IMAGEN (codigo,imagen) values (?,?)";
+									tx.executeSql(sql, [item.CodProd,item.Imagen64 ]);
+									//sql = "INSERT INTO PRECIOS (codigo,  precio1, precio2, precio3, Iva) VALUES (?,?,?,?,?)";
+									//tx.executeSql(sql, [item.CodProd,  item.Precio1, item.Precio2, item.Precio3, item.Iva]);
+									self.CountPrecios(N);
+								}
+
+								
 								if(tabla == 'CxC') {									
 									sql = "INSERT INTO CxC (codclie, document, tipodoc, numerod, fechae, fechav, monto, saldo) VALUES (?,?,?,?,?,?,?,?)";
 									tx.executeSql(sql, [item.CodClie, item.Documento, item.TipoDoc, item.NumeroD, item.FechaE, item.FechaV, item.Monto, item.Saldo]);									
@@ -83,10 +107,12 @@
 									}									
 									self.CountCxC(N);
 								}
+
 								if(tabla == 'USUARIOS') {
 									sql = "INSERT INTO USUARIOS  (codigo, descrip, clave,codvend,preciovend1,preciovend2,preciovend3,precli,negativo,descuento,nivel,items,autorizacredito) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";								
 									tx.executeSql(sql, [item.CodUsua, item.Descrip, item.Clave, item.CodVend, item.PrecioVend1,item.PrecioVend2,item.PrecioVend3,item.Prevalece, item.Negativo, item.Descuento, item.Nivel, item.Items, item.AutorizaCredito]);
 								}
+
 								if(tabla == 'CLIENTES') {
 									//console.log(item.CodClie+', '+item.Descrip+', '+ item.ID3+', '+item.CodZona+', '+item.CodVend+', '+item.LimiteCred+', '+item.DiasCred+', '+item.Saldo+', '+item.MtoMaxCred+', '+item.Descto+', '+item.TipoPVP);
 								   	sql = "INSERT INTO CLIENTES  (CodClie, Descrip, ID3, CodZona, CodVend, LimiteCred, DiasCred, Saldo, MtoMaxCred, Descto, TipoPVP,DiasTole,Represent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -113,7 +139,7 @@
 			var N = 0;
 			var j = 1;			
 			var parametros = '{"parametro": "'+sqlwhere+'","coddepo": "'+coddepo+'"}';
-			
+//			alert(tabla+' '+sqlwhere);
 			a = $.ajax({				
 				url: urlajax,
 				type: 'POST',
@@ -166,6 +192,7 @@
 						var numd = "";
 						var numdact = "";
 						var enviar = 0;
+
 						for(var i = 0; i < n; i++) {
 							numdact = rs.rows.item(i).numerod;
 							$.mobile.ModelDocumento.items.push(new $.mobile.ModelDocumento.InsertarItemDocumento(rs.rows.item(i).coditem, rs.rows.item(i).descrip, rs.rows.item(i).cantidad, rs.rows.item(i).precio, rs.rows.item(i).descuento, 0, 0, 0, 0, 0, 0, 0,rs.rows.item(i).observacion,rs.rows.item(i).codubic,rs.rows.item(i).detalleprd));
@@ -177,7 +204,7 @@
 							}
 
 							if(enviar == 1) {
-								self.EnviarDocumento(numdact);								
+								self.EnviarDocumento(numdact);	
 							} // Fin If Enviar
 						} //Fin For
 					} // Fin If
@@ -281,7 +308,8 @@
 						$.mobile.ModelDocumento.codvend(rs.rows.item(0).codvend);
 						$.mobile.ModelDocumento.observacion(rs.rows.item(0).observacion);
                         $.mobile.ModelDocumento.descuentog(rs.rows.item(0).descuentog);
-						for(var i = 0; i < n; i++)
+                        $.mobile.ModelDocumento.esCC(rs.rows.item(0).esCC);                        
+  						for(var i = 0; i < n; i++)
 							$.mobile.ModelDocumento.items.push(new $.mobile.ModelDocumento.InsertarItemDocumento(rs.rows.item(i).coditem, rs.rows.item(i).descrip, rs.rows.item(i).cantidad, rs.rows.item(i).precio, rs.rows.item(i).descuento, 0, 0, 0, 0, 0, 0, 0,rs.rows.item(i).observacion,rs.rows.item(i).codubic,rs.rows.item(i).detalleprd));
 						var cadena = ko.toJSON($.mobile.ModelDocumento);						
 						$.mobile.ModelDocumento.items.removeAll();
@@ -336,6 +364,15 @@
 				}); // Fin Funcion
 			}); //Fin Transaccion
 		},
+
+
+
+
+		ObtenerPrecios: function(){},
+
+
+		ObtenerImagenes: function(){},
+
         
 		ObtenerLista: function(){
 			$.mobile.loading('show', {

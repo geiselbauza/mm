@@ -38,6 +38,7 @@
       coddepo:ko.observable(""),
       Puerto:ko.observable(""),
       TieneImpreso:ko.observable(0),
+      verimagen:ko.observable(0),
       direccionURL:ko.observable(""),
       PA:ko.observable(""),
       
@@ -173,7 +174,7 @@
 					//tx.executeSql(sql);				
 					//sql = 'INSERT INTO DATOSP(direccion,puerto,tipocarga,tipocon,coddepo) VALUES(?,?,?,?,?)';
 					//tx.executeSql(sql, [ self.IP(),self.Puerto(),self.TipoCarga(),tcon]);					
-					sql = "UPDATE DATOSP SET direccion ='"+self.IP()+"', puerto = '"+self.Puerto()+"',tipocarga = "+self.TipoCarga()+", tipocon = "+tcon+", coddepo = '"+self.coddepo()+"', tieneimpreso = '"+self.TieneImpreso()+"'";
+					sql = "UPDATE DATOSP SET direccion ='"+self.IP()+"', puerto = '"+self.Puerto()+"',tipocarga = "+self.TipoCarga()+", tipocon = "+tcon+", coddepo = '"+self.coddepo()+"', tieneimpreso = '"+self.TieneImpreso()+"',verimagen = '"+self.verimagen()+"'";
 					tx.executeSql(sql);
 				});
 		  	self.getDatosServidor();
@@ -210,6 +211,7 @@
 					                self.Puerto(item.puerto);
 					                self.coddepo(item.coddepo);
 					                self.TieneImpreso(item.TieneImpreso);
+							self.verimagen(item.verimagen);
 					                self.TipoCarga(item.tipocarga);
 					                self.vendernegativo(item.vendernegativo);
 					                if (item.tipocon == 1)

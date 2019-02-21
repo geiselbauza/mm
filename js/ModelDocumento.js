@@ -30,11 +30,12 @@
 		p1v: ko.observable(true),
 		p2v: ko.observable(true),
 		p3v: ko.observable(true),
-		
+		esCC:ko.observable(true),		
 		init : function() {
 			$('#IngresoManual').live(
 					'pageinit',
 					function() {
+
 						self.TotalesParciales();
 						self.TotalesGenerales();
 						ko.applyBindings(self, document
@@ -42,6 +43,7 @@
 			 });
 
 			$('#items').live('pageinit', function() {
+
 				self.TotalesParciales();
 				self.TotalesGenerales();
 				ko.applyBindings(self, document.getElementById('items'));
@@ -54,6 +56,7 @@
 			});
 
 			$('#cantidad').live('pageinit', function() {
+
 				self.TotalesParciales();
 				self.TotalesGenerales();
 				ko.applyBindings(self, document.getElementById('cantidad'));
@@ -66,16 +69,19 @@
 			});
 
 			$('#descuento').live('pageinit', function() {
+
 				ko.applyBindings(self, document.getElementById('descuento'));
 			});
 
 
 			$('#detalle').live('pageinit', function() {
+
 				ko.applyBindings(self, document.getElementById('detalle'));
 			});
 
 
 			$('#totales').live('pageinit', function() {
+
 				ko.applyBindings(self, document.getElementById('totales'));
 			});
 
@@ -132,13 +138,13 @@
 				}
 			}
 
-			if ($.mobile.ModelLogin.descuento() == -1){
-				if (self.DescPorc() > self.desctocliente()){
-					alert('Descuento aplicado supera al permitido al cliente');
-					self.DescPorc(0);
-				}
+			// if ($.mobile.ModelLogin.descuento() == -1){
+			// 	if (self.DescPorc() > self.desctocliente()){
+			// 		alert('Descuento aplicado supera al permitido al cliente');
+			// 		self.DescPorc(0);
+			// 	}
 
-			}
+			// }
 		},
 		
 		
@@ -409,7 +415,7 @@
 		InsertarItemDocumento : function(codigo, descrip, cantidad, precio,
 				descuentoParcial, ivaParcial, totalParcial, totalBrutoParcial,
 				totalNetoParcial, baseImponibleParcial, excentoParcial,
-				porccliente,obsPedidos,codubic,detalleprd) {
+				porccliente,obsPedidos,codubic,detalleprd,esCC) {
 			var self = this;
 			this.coditem = ko.observable(codigo);
 			this.descrip = ko.observable(descrip);
@@ -426,6 +432,8 @@
 			this.obsPedidos = ko.observable(obsPedidos);
 			this.codubic    = ko.observable(codubic);
 			this.detalleprd    = ko.observable(detalleprd);
+			this.esCC    = ko.observable(esCC);
+	
 		},
 
 		InsertarItemProducto : function(codigo, descrip, precio1, precio2,
@@ -529,6 +537,13 @@
 			var numerod = 0;
 			var obsPedidos = $.mobile.ModelTotalizar.obsPedidos();
             var totalDescuentoGlobal = $.mobile.ModelTotalizar.totalDescuentoGlobal();
+			var esCC = $.mobile.ModelTotalizar.esCC();
+	//		alert(esCC);
+		  if (esCC==true)
+			 esCC = 1;
+          else
+			 esCC = 0;
+		//alert(esCC);
 			$.mobile.SqLite
 					.transaction(function(tx) {
 						var consulta = 'Select Count(*) + 1 as cantidad From Documentos';
@@ -547,8 +562,8 @@
 								.arrayForEach(
 										self.items(),
 										function(w) {
-                                        var sql = 'INSERT INTO DOCUMENTOS(tipodoc,numerod,fechae,linea,coditem,descrip,status,cantidad,codvend,codclie,precio,descuento,totalitem,estaproc,observacion,codubic,detalleprd,descuentog) '+
-										          'VALUES("A","' + numerod + '",datetime("now","localtime"),?,?,?,?,?,?,?,?,?,?,0,?,?,?,?)';
+                                        var sql = 'INSERT INTO DOCUMENTOS(tipodoc,numerod,fechae,linea,coditem,descrip,status,cantidad,codvend,codclie,precio,descuento,totalitem,estaproc,observacion,codubic,detalleprd,descuentog,esCC) '+
+										          'VALUES("A","' + numerod + '",datetime("now","localtime"),?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?)';
 
                                                 	tx.executeSql(sql, [ j,
 													w.coditem(), w.descrip(),
@@ -557,7 +572,7 @@
 													self.codclie(), w.precio(),
 													w.descuentoParcial(),
 													w.totalParcial(),
-													obsPedidos,w.codubic(),w.detalleprd(),totalDescuentoGlobal]);
+													obsPedidos,w.codubic(),w.detalleprd(),totalDescuentoGlobal,esCC]);
 
 
 
@@ -569,7 +584,9 @@
 											if (j == (self.items().length) - 1) {
 												alert('Pedido Almacenado en Dispositivo Mobil');
 												self.items.removeAll();
-												self.codclie("");											
+												self.codclie("");
+
+
 											}
 											j = j + 1;
 										});
@@ -594,7 +611,12 @@
 			self.detalleprd("");
 			self.DescPorc(0);
 			self.cantidad(0);
-		},
+			document.esCCForm.esCC.click(); 
+			document.esCCForm.esCC.click(); 
+
+},
+
+
         CargaCliente: function(){
             $.mobile.changePage('#infocxc');
   	    },

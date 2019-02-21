@@ -3,8 +3,8 @@
 
     		totalBrutoGeneral     : ko.observable(0),
     		totalDescuentoGeneral : ko.observable(0), // este es parcial
-            totalDescuentoGlobal  : ko.observable(0),// este es global
-            totalDescuentoGlobalP : ko.observable(0),// este es global
+        totalDescuentoGlobal  : ko.observable(0),// este es global
+        totalDescuentoGlobalP : ko.observable(0),// este es global
     		totalNetoGeneral      : ko.observable(0),
     		totalImponibleGeneral : ko.observable(0),
     		totalExcentoGeneral   : ko.observable(0),
@@ -18,6 +18,7 @@
     		divcheque             : ko.observable(false),
     		divtransferencia      : ko.observable(false),
     		divdepobancario       : ko.observable(false),
+        esCC                  : ko.observable(false),
     		
     		//Generales
     		tipoFP: ko.observable(""),
@@ -50,6 +51,7 @@
     		
     		init : function()
 	        {
+
     	       $('#confirmar').live('pageinit',function()
                 {
     	    	   self.credis($.mobile.ModelCliente.clientesaldo());
@@ -98,7 +100,8 @@
             keyOnEnterDesc: function(data, event) {
             var keyCode = (event.which ? event.which : event.keyCode);
             var total = 0;
-             if (keyCode == 13) {
+             if (keyCode) {
+             console.log(keyCode) ;
              total=(parseFloat(self.totalBrutoGeneral())-parseFloat(self.totalDescuentoGeneral()))*parseFloat(self.totalDescuentoGlobalP())/100;
              self.totalDescuentoGlobal(total.toFixed(2));
              $.mobile.ModelDocumento.TotalesGenerales();
@@ -145,16 +148,18 @@
       	     limpiarcampos:function(){
       	    	self.tipoFP("");
       	    	self.monto(0);
-        		self.ncheque("");
-        		self.banco("");
-        		self.cedula("");
-        		self.telefono("");
-        		self.remitente("");
-        		self.nrecibo("");
-        		self.ndeposito("");
-        		self.obsPedidos("");
-                self.totalDescuentoGeneral(0);
-                self.totalDescuentoGlobal(0);
+        		  self.ncheque("");
+        		  self.banco("");
+        		  self.cedula("");
+        		  self.telefono("");
+        		  self.remitente("");
+        		  self.nrecibo("");
+        		  self.ndeposito("");
+        		  self.obsPedidos("");
+              self.totalDescuentoGeneral(0);
+              self.totalDescuentoGlobal(0);
+              self.totalDescuentoGlobalP(0);              
+              self.esCC(true);
       	     },
 
 	     	clickconfirmar : function(){	
