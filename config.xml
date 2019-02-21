@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget 
+    Id = "com.phonegap.MarketMobile"
+    versionCode = "5"
+    version     = "1.0.0" >
+
+<!-- versionCode is optional and Android only -->
+
+  <name>MarketMobile</name>
+
+  <description>
+      Sistema de pedidos para CAUCHOS LA MUNDIAL, C.A.
+  </description>
+
+  <author href="https://desarrollosgg.com" email="geiselbauza@gmail.com.com">
+      Desarrollos GG
+  </author>
+
+</widget>
