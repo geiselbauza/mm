@@ -4,10 +4,10 @@
 		xmlns:android = "http://schemas.android.com/apk/res/android"
 		id        = "com.phonegap.MarketMobile"
 		versionCode="10"
-		version   = "1.0.0">
+		version   = "1.1.0">
 		<name>MarketMobile		</name>
 		<description>Sistema de pedidos para CAUCHOS LA MUNDIAL, C.A.		</description>
-		<author href="https://desarrollosgg.com" email="geiselbauza@gmail.com.com">Desarrollos GG		</author>
+		<author href="https://desarrollosgg.com" email="geiselbauza@gmail.com.com">Desarrollos GG</author>
 		<feature name="http://api.phonegap.com/1.0/battery" />
 		<feature name="http://api.phonegap.com/1.0/camera" />
 		<feature name="http://api.phonegap.com/1.0/contacts" />
@@ -39,7 +39,7 @@
 		<preference name="HideKeyboardFormAccessoryBar" value="true" />
 		<preference name="SuppressesIncrementalRendering" value="false" />
 		<preference name="windows-identity-name" value="" />
-		<preference name="android-minSdkVersion" value="0" />
+		<preference name="android-minSdkVersion" value="1" />
 		<preference name="android-targetSdkVersion" value="1" />
 		<preference name="android-maxSdkVersion" value="5" />
 		<preference name="android-installLocation" value="auto" />
