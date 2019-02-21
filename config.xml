@@ -1,64 +1,26 @@
-		<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.phonegap.MarketMobile"
+    id          = "com.phonegap.example"
     versionCode = "10"
     version     = "1.0.0" >
 
 <!-- versionCode is optional and Android only -->
 
-  <name>MarketMobile</name>
+  <name>PhoneGap Example</name>
 
   <description>
-      Sistema de toma de pedidos 
+      An example for phonegap build docs.
   </description>
 
-  <author href="https://desarrollosgg.com" email="geiselbauza@gmail.com.com">
-      Desarrollos GG
+  <author href="https://build.phonegap.com" email="support@phonegap.com">
+      Hardeep Shoker
   </author>
-
-	<feature name="http://api.phonegap.com/1.0/battery" />
-		<feature name="http://api.phonegap.com/1.0/camera" />
-		<feature name="http://api.phonegap.com/1.0/contacts" />
-		<feature name="http://api.phonegap.com/1.0/file" />
-		<feature name="http://api.phonegap.com/1.0/geolocation" />
-		<feature name="http://api.phonegap.com/1.0/media" />
-		<feature name="http://api.phonegap.com/1.0/network" />
-		<feature name="http://api.phonegap.com/1.0/notification" />
-		<preference name="phonegap-version" value="3.0.0" />
-		<preference name="android-build-tool" value="gradle" />
-		<preference name="orientation" value="default" />
-		<preference name="fullscreen" value="false" />
-		<preference name="target-device" value="universal" />
-		<preference name="webviewbounce" value="true" />
-		<preference name="prerendered-icon" value="false" />
-		<preference name="stay-in-webview" value="true" />
-		<preference name="ios-statusbarstyle" value="default" />
-		<preference name="detect-data-types" value="true" />
-		<preference name="exit-on-suspend" value="true" />
-		<preference name="show-splash-screen-spinner" value="true" />
-		<preference name="auto-hide-splash-screen" value="true" />
-		<preference name="FadeSplashScreen " value="true" />
-		<preference name="EnableViewportScale" value="false" />
-		<preference name="MediaPlaybackRequiresUserAction" value="false" />
-		<preference name="AllowInlineMediaPlayback" value="true" />
-		<preference name="BackupWebStorage" value="none" />
-		<preference name="TopActivityIndicator" value="white" />
-		<preference name="KeyboardDisplayRequiresUserAction" value="true" />
-		<preference name="KeyboardShrinksView " value="true" />
-		<preference name="HideKeyboardFormAccessoryBar" value="true" />
-		<preference name="SuppressesIncrementalRendering" value="false" />
-		<preference name="windows-identity-name" value="" />
-		<preference name="android-minSdkVersion" value="10" />
-		<preference name="android-targetSdkVersion" value="21" />
-		<preference name="android-maxSdkVersion" value="23" />
-		<preference name="android-installLocation" value="auto" />
-		<preference name="SplashScreenDelay" value="0" />
-		<preference name="ErrorUrl" value="0" />
-		<preference name="BackgroundColor" value="0" />
-		<preference name="DisallowOverscroll" value="true" />
-		<preference name="LoadUrlTimeoutValue" value="0" />
-		<platform name="android">
-		</platform>
-		 <icon src="icon.png" />
-		</widget>
+	<feature name="http://api.phonegap.com/1.0/geolocation" />
+	<feature name="http://api.phonegap.com/1.0/media" />
+	<feature name="http://api.phonegap.com/1.0/network" />
+	<feature name="http://api.phonegap.com/1.0/notification" />
+	<preference name="target-device" value="universal" />
+	<platform name="android">
+	</platform>
+</widget>
